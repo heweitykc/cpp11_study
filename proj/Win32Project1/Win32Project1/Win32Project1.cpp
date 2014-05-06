@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "Win32Project1.h"
+#include "rtti.h"
 
 #define MAX_LOADSTRING 100
 
@@ -137,6 +138,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// ·ÖÎö²Ëµ¥Ñ¡Ôñ: 
 		switch (wmId)
 		{
+		case IDM_TEST:
+			RTTITest test1;
+			test1.hWnd = hWnd;
+			test1.test();
+			break;
 		case IDM_ABOUT:
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 			break;
