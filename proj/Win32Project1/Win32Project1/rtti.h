@@ -11,7 +11,13 @@ public:
 };
 
 class YJTV : public TV{
+public:
+	void sayYJ();
+};
 
+class CRTTV : public TV{
+public:
+	void sayCRT();
 };
 
 class RTTITest : public WinNode{
