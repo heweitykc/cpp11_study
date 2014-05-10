@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "rtti.h"
+#include "vector.h"
 
 void TV::goChannel(int channel)
 {
 	TCHAR msg[256];
 	ZeroMemory(msg, 256);
-	wsprintf(msg, L"您选择了频道%d。", channel);
+	StringCbPrintf(msg, 256, L"您选择了频道%d。", channel);
 	disp(this->hWnd, msg);
 }
 
@@ -29,6 +30,9 @@ void showWho(TV *base, const HWND& hWnd) {
 		derived2->sayCRT();
 	}
 	disp(hWnd, typeid(*base).name());
+	disp(hWnd, typeid(YJTV).name());
+	disp(hWnd, typeid(CRTTV).name());
+
 }
 
 void RTTITest::test()
@@ -42,6 +46,16 @@ void RTTITest::test()
 
 	showWho(yjtv,hWnd);
 	showWho(crttv,hWnd);
+
+
+	GEOM::Vector vector1(1.01, 1.02, 'a');
+	GEOM::Vector vector2(2.01, 9.02, 'b');
+	GEOM::Vector v3 = vector1 + vector2;
+
+	TCHAR msg[256];
+	ZeroMemory(msg, 256);
+	StringCbPrintf(msg, 256, L"相加的结果x=%4.2f,y=%4.2f。", v3.get_x(), v3.get_y());
+	disp(hWnd, msg);
 
 	delete yjtv;
 }
