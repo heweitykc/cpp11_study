@@ -1,23 +1,21 @@
 #include "stdafx.h"
 #include "rtti.h"
 #include "vector.h"
+#include "strngbad.h"
 
 void TV::goChannel(int channel)
 {
-	TCHAR msg[256];
-	ZeroMemory(msg, 256);
-	StringCbPrintf(msg, 256, L"您选择了频道%d。", channel);
-	disp(this->hWnd, msg);
+	dispW(this->hWnd, TEXT("您选择了频道%d。"), channel);
 }
 
 void YJTV::sayYJ()
 {
-	disp(this->hWnd, "i'm yjtv");
+	dispW(this->hWnd, L"i'm yjtv");
 }
 
 void CRTTV::sayCRT()
 {
-	disp(this->hWnd, "i'm crttv");
+	dispW(this->hWnd, L"i'm crttv");
 }
 
 void showWho(TV *base, const HWND& hWnd) {
@@ -29,9 +27,8 @@ void showWho(TV *base, const HWND& hWnd) {
 		CRTTV *derived2 = static_cast<CRTTV*>(base);
 		derived2->sayCRT();
 	}
-	disp(hWnd, typeid(*base).name());
-	disp(hWnd, typeid(YJTV).name());
-	disp(hWnd, typeid(CRTTV).name());
+	const char* sname = typeid(*base).name();
+	dispW(hWnd, L"name is %s.", sname);
 
 }
 
@@ -52,10 +49,9 @@ void RTTITest::test()
 	GEOM::Vector vector2(2.01, 9.02, 'b');
 	GEOM::Vector v3 = vector1 + vector2;
 
-	TCHAR msg[256];
-	ZeroMemory(msg, 256);
-	StringCbPrintf(msg, 256, L"相加的结果x=%4.2f,y=%4.2f。", v3.get_x(), v3.get_y());
-	disp(hWnd, msg);
+	dispW(hWnd, TEXT("相加的结果x=%4.2f,y=%4.2f。"), v3.get_x(), v3.get_y());
+
+	auto badstr = new StringBad("good!",hWnd);
 
 	delete yjtv;
 }

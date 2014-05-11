@@ -1,7 +1,8 @@
 #pragma once
 
-void disp(HWND hwnd, const TCHAR* str);
-void disp(HWND hwnd, const char* str);
+void dispW(HWND hwnd, const TCHAR* str, ...);
+void dispA(HWND hwnd, const char* str, ...);
+
 void clear();
 
 class WinNode{

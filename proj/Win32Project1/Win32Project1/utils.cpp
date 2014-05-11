@@ -12,7 +12,7 @@ void dispW(HWND hwnd, const TCHAR* str, ...)
 	va_start(args, str);
 
 	ZeroMemory(msg, TXTCOUNT);
-	StringCchPrintf(msg, TXTCOUNT, str, args);
+	StringCchPrintfW(msg, TXTCOUNT/2, str, args);
 	va_end(args);
 
 	HFONT hfont, hOldfont;
@@ -35,7 +35,7 @@ void dispA(HWND hwnd, const char* str, ...)
 	va_start(args, str);
 
 	ZeroMemory(cmsg, TXTCOUNT);
-	sprintf(cmsg, str, args);
+	StringCchPrintfA(cmsg, TXTCOUNT, str, args);
 	va_end(args);
 
 	HFONT hfont, hOldfont;
@@ -45,7 +45,7 @@ void dispA(HWND hwnd, const char* str, ...)
 	hdc = GetDC(hwnd);
 	hOldfont = (HFONT)SelectObject(hdc, hfont);
 	if (hOldfont){
-		TextOutA(hdc, 5, text_cnt * 20, cmsg, strlen(cmsg));
+		TextOutA(hdc, 5, text_cnt * 20, cmsg, std::strlen(cmsg));
 		SelectObject(hdc, hOldfont);
 	}
 	ReleaseDC(hwnd, hdc);
