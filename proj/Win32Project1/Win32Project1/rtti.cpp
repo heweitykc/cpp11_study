@@ -2,6 +2,7 @@
 #include "rtti.h"
 #include "vector.h"
 #include "strngbad.h"
+#include "lambdaTest.h"
 
 void TV::goChannel(int channel)
 {
@@ -44,7 +45,6 @@ void RTTITest::test()
 	showWho(yjtv,hWnd);
 	showWho(crttv,hWnd);
 
-
 	GEOM::Vector vector1(1.01, 1.02, 'a');
 	GEOM::Vector vector2(2.01, 9.02, 'b');
 	GEOM::Vector v3 = vector1 + vector2;
@@ -52,6 +52,9 @@ void RTTITest::test()
 	dispW(hWnd, TEXT("相加的结果x=%4.2f,y=%4.2f。"), v3.get_x(), v3.get_y());
 
 	auto badstr = new StringBad("good!",hWnd);
+
+	LambdaTest lambdaTest(hWnd, 100);
+	lambdaTest.dotest();
 
 	delete yjtv;
 }
