@@ -2,6 +2,9 @@
 #include "rtti.h"
 #include "vector.h"
 #include "strngbad.h"
+#include "lambdaTest.h"
+#include <algorithm>
+#include <vector>
 
 void TV::goChannel(int channel)
 {
@@ -44,7 +47,6 @@ void RTTITest::test()
 	showWho(yjtv,hWnd);
 	showWho(crttv,hWnd);
 
-
 	GEOM::Vector vector1(1.01, 1.02, 'a');
 	GEOM::Vector vector2(2.01, 9.02, 'b');
 	GEOM::Vector v3 = vector1 + vector2;
@@ -53,5 +55,28 @@ void RTTITest::test()
 
 	auto badstr = new StringBad("good!",hWnd);
 
+	LambdaTest lambdaTest(hWnd, 100);
+	lambdaTest.dotest();
+
+	int iarray[100] = {0};
+	iarray[0] = 101;
+	iarray[10] = 1012;
+	iarray[61] = 102;
+	int* ip = std::find(iarray, iarray+100, 1012);
+	if (ip == iarray + 100){
+		dispW(hWnd, L"没找到");
+	} else {
+		dispW(hWnd, L"iarray=%x, 找到了%x", iarray, ip);
+	}
+
+	std::vector<int> intVector(100);
+	intVector[12] = 1001;
+	std::vector<int>::iterator inIter = find(intVector.begin(), intVector.end(), 1001);
+	if (inIter != intVector.end()){
+		dispW(hWnd, L"intVector=%x, 找到了%d", intVector, *inIter);
+	}
+	else {
+		dispW(hWnd, L"没找到");
+	}
 	delete yjtv;
 }

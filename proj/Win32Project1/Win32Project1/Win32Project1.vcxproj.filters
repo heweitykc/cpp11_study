@@ -42,6 +42,12 @@
     <ClInclude Include="strngbad.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="lambdaTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="win32base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +66,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stringbad.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdaTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="win32base.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

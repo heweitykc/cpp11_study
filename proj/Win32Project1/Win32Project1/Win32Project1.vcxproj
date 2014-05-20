@@ -77,6 +77,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lambdaTest.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="rtti.h" />
     <ClInclude Include="stdafx.h" />
@@ -84,9 +85,11 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector.h" />
+    <ClInclude Include="win32base.h" />
     <ClInclude Include="Win32Project1.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lambdaTest.cpp" />
     <ClCompile Include="rtti.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -95,6 +98,7 @@
     <ClCompile Include="stringbad.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="win32base.cpp" />
     <ClCompile Include="Win32Project1.cpp" />
   </ItemGroup>
   <ItemGroup>
