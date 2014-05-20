@@ -5,7 +5,8 @@
 
 void TV::goChannel(int channel)
 {
-	dispW(this->hWnd, TEXT("ÄúÑ¡ÔñÁËÆµµÀ%d¡£"), channel);
+
+	dispW(this->hWnd, TEXT("Äú slelect %d¡£"), channel);
 }
 
 void YJTV::sayYJ()
@@ -28,8 +29,7 @@ void showWho(TV *base, const HWND& hWnd) {
 		derived2->sayCRT();
 	}
 	const char* sname = typeid(*base).name();
-	dispW(hWnd, L"name is %s.", sname);
-
+	dispA(hWnd, "name is %s.", sname);
 }
 
 void RTTITest::test()
@@ -39,7 +39,7 @@ void RTTITest::test()
 	TV* tv0 = yjtv;
 	yjtv->hWnd = this->hWnd;
 	crttv->hWnd = this->hWnd;
-	tv0->goChannel(100);
+	tv0->goChannel(110);
 
 	showWho(yjtv,hWnd);
 	showWho(crttv,hWnd);

@@ -12,7 +12,7 @@ void dispW(HWND hwnd, const TCHAR* str, ...)
 	va_start(args, str);
 
 	ZeroMemory(msg, TXTCOUNT);
-	StringCchPrintfW(msg, TXTCOUNT/2, str, args);
+	vswprintf(msg, TXTCOUNT / 2, str, args);
 	va_end(args);
 
 	HFONT hfont, hOldfont;
@@ -35,7 +35,8 @@ void dispA(HWND hwnd, const char* str, ...)
 	va_start(args, str);
 
 	ZeroMemory(cmsg, TXTCOUNT);
-	StringCchPrintfA(cmsg, TXTCOUNT, str, args);
+	//StringCchPrintfA(cmsg, TXTCOUNT, str, args);
+	vsprintf(cmsg, str, args);
 	va_end(args);
 
 	HFONT hfont, hOldfont;
