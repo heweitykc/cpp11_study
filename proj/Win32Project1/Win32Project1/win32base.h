@@ -1,7 +1,5 @@
 #pragma once
 
-#define TXTCOUNT 2048
-
 class win32base
 {
 public:
