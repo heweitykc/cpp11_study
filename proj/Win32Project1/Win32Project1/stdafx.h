@@ -17,8 +17,15 @@
 #include <memory.h>
 #include <tchar.h>
 #include <typeinfo>
+#include <time.h>
 
 // TODO:  在此处引用程序需要的其他头文件
 #include <strsafe.h>
 #include <iostream>
 #include <cstring>
+#include <numeric>
+#include <list>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <functional>
