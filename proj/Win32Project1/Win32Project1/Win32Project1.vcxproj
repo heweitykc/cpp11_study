@@ -77,7 +77,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="generator.h" />
+    <ClInclude Include="IteratorTest.h" />
     <ClInclude Include="lambdaTest.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="rtti.h" />
@@ -90,7 +90,7 @@
     <ClInclude Include="Win32Project1.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="generator.cpp" />
+    <ClCompile Include="IteratorTest.cpp" />
     <ClCompile Include="lambdaTest.cpp" />
     <ClCompile Include="rtti.cpp" />
     <ClCompile Include="stdafx.cpp">

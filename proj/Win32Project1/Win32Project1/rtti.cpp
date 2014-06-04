@@ -1,15 +1,17 @@
 #include "stdafx.h"
+
+#include <algorithm>
+#include <vector>
+
 #include "rtti.h"
 #include "vector.h"
 #include "strngbad.h"
 #include "lambdaTest.h"
-#include <algorithm>
-#include <vector>
+#include "IteratorTest.h"
 
 void TV::goChannel(int channel)
 {
-
-	dispW(this->hWnd, TEXT("您 slelect %d。"), channel);
+	dispW(this->hWnd, TEXT("您选择了频道%d。"), channel);
 }
 
 void YJTV::sayYJ()
@@ -32,7 +34,8 @@ void showWho(TV *base, const HWND& hWnd) {
 		derived2->sayCRT();
 	}
 	const char* sname = typeid(*base).name();
-	dispA(hWnd, "name is %s.", sname);
+	dispW(hWnd, L"name is %s.", sname);
+
 }
 
 void RTTITest::test()
@@ -42,7 +45,7 @@ void RTTITest::test()
 	TV* tv0 = yjtv;
 	yjtv->hWnd = this->hWnd;
 	crttv->hWnd = this->hWnd;
-	tv0->goChannel(110);
+	tv0->goChannel(100);
 
 	showWho(yjtv,hWnd);
 	showWho(crttv,hWnd);
@@ -74,9 +77,12 @@ void RTTITest::test()
 	std::vector<int>::iterator inIter = find(intVector.begin(), intVector.end(), 1001);
 	if (inIter != intVector.end()){
 		dispW(hWnd, L"intVector=%x, 找到了%d", intVector, *inIter);
-	}
-	else {
+	} else {
 		dispW(hWnd, L"没找到");
 	}
+
+	IteratorTest test0;
+	test0.doit();
+
 	delete yjtv;
 }
