@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XML", "..\..\..\..\360Downl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Util", "..\..\..\..\360Downloads\poco-1.4.6p4\poco-1.4.6p4\Util\Util_vs110.vcxproj", "{6FF56CDB-787A-4714-A28C-919003F9FA6C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Project2", "..\pkgutil\Win32Project2\Win32Project2.vcxproj", "{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		debug_shared|Win32 = debug_shared|Win32
@@ -105,6 +107,22 @@ Global
 		{6FF56CDB-787A-4714-A28C-919003F9FA6C}.release_static_mt|Win32.Build.0 = release_static_mt|Win32
 		{6FF56CDB-787A-4714-A28C-919003F9FA6C}.Release|Win32.ActiveCfg = release_shared|Win32
 		{6FF56CDB-787A-4714-A28C-919003F9FA6C}.Release|Win32.Build.0 = release_shared|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.debug_shared|Win32.ActiveCfg = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.debug_shared|Win32.Build.0 = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.debug_static_md|Win32.ActiveCfg = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.debug_static_md|Win32.Build.0 = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.debug_static_mt|Win32.ActiveCfg = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.debug_static_mt|Win32.Build.0 = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.Debug|Win32.Build.0 = Debug|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.release_shared|Win32.ActiveCfg = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.release_shared|Win32.Build.0 = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.release_static_md|Win32.ActiveCfg = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.release_static_md|Win32.Build.0 = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.release_static_mt|Win32.ActiveCfg = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.release_static_mt|Win32.Build.0 = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.Release|Win32.ActiveCfg = Release|Win32
+		{BA3AC8F2-8319-4A70-A76A-4B9A61CA648C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

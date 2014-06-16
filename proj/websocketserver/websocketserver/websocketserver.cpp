@@ -34,6 +34,7 @@ public:
 			int n;
 			do{
 				n = ws.receiveFrame(buffer, sizeof(buffer), flags);
+				cout << "recv data" << endl;
 				ws.sendFrame(buffer, n, flags);
 			} while (n > 0 || (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
 		}
