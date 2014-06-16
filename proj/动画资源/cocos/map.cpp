@@ -21,13 +21,22 @@ Scene* GameMap::scene()
 // on "init" you need to initialize your instance
 bool GameMap::init()
 {
+	_bg = Sprite::create("1.jpg");
+	this->addChild(_bg);
+	_road = Sprite::create("1.png");
+	this->addChild(_road);
+
+	auto bgsize = _bg->getContentSize();
+	auto size = _road->getContentSize();
+	_bg->setPosition(bgsize.width / 2, bgsize.height / 2 + (size.height-bgsize.height));
+	_road->setPosition(size.width / 2, size.height / 2);
+
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magician.plist");
-	_actors = SpriteBatchNode::create("magician.png");
-	this->addChild(_actors);
 
 	_role = Role::create();
-	_actors->addChild(_role);
 
+	_role->setPosition(400, 400);
+	this->addChild(_role);
 	return true;
 }
 
