@@ -25,6 +25,9 @@ private:
 	cocos2d::Sprite* _road;
 	cocos2d::SpriteBatchNode *_actors;
 
+	bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+	void onTouchMove(cocos2d::Touch*, cocos2d::Event*);
+	void onTouchEnd(cocos2d::Touch*, cocos2d::Event*);
 	void logic(float dt);
 };
 

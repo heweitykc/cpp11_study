@@ -34,49 +34,57 @@ bool GameMap::init()
 	_road->setPosition(size.width / 2, size.height / 2);	
 
 	_role = Role::create();
-	_role->setPosition(0, 210);
+	_role->setPosition(0, 0);
 	_road->addChild(_role);
 	_role->stop();
 
 	auto listener1 = EventListenerTouchOneByOne::create();
 	listener1->setSwallowTouches(true);
 
-	listener1->onTouchBegan = [this](Touch* touch, Event* event){
-		log("onTouchBegan");
-		Vec2 v2 = touch->getLocation();
-		v2 = _road->convertToNodeSpace(v2);
-		v2.y += 100;
-		Vec2 v1 = _role->getPosition();
-		float len = v2.distance(v1);
-		float per = 1.0f / 200.0f;
-		_role->run();
+	listener1->onTouchBegan = CC_CALLBACK_2(GameMap::onTouchBegan, this);
 
-		auto action1 = CallFunc::create(
-			[&](){
-				_role->stop();
-			});
-		_role->stopAllActions();
-		_role->runAction(Sequence::create(MoveTo::create(per*len, v2), action1, NULL));
-		if (v2.x > v1.x)
-			_role->setScaleX(1);
-		else
-			_role->setScaleX(-1);
-		return true;
-	};
+	listener1->onTouchMoved = CC_CALLBACK_2(GameMap::onTouchMove, this);
 
-	listener1->onTouchMoved = [this](Touch* touch, Event* event){
-		log("onTouchMoved");
-	};
-
-	listener1->onTouchEnded = [this](Touch* touch, Event* event){
-		log("onTouchEnded");
-	};
+	listener1->onTouchEnded = CC_CALLBACK_2(GameMap::onTouchEnd, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, _road);
 
 	this->schedule(schedule_selector(GameMap::logic));
 
 	return true;
+}
+
+bool GameMap::onTouchBegan(Touch* touch, Event* event)
+{
+	log("onTouchBegan");
+	Vec2 v2 = touch->getLocation();
+	v2 = _road->convertToNodeSpace(v2);
+	v2.y += 100;
+	Vec2 v1 = _role->getPosition();
+	float len = v2.distance(v1);
+	float per = 1.0f / 200.0f;
+	_role->run();
+
+	auto action1 = CallFunc::create(
+		[&](){
+		_role->stop();
+	});
+	_role->stopAllActions();
+	_role->runAction(Sequence::create(MoveTo::create(per*len, v2), action1, NULL));
+	if (v2.x > v1.x)
+		_role->setScaleX(1);
+	else
+		_role->setScaleX(-1);
+	return true;
+}
+
+void GameMap::onTouchMove(cocos2d::Touch*, cocos2d::Event*)
+{
+
+}
+void GameMap::onTouchEnd(cocos2d::Touch*, cocos2d::Event*)
+{
+
 }
 
 void GameMap::logic(float dt)

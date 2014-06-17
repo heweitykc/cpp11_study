@@ -5,6 +5,7 @@ USING_NS_CC;
 bool Role::init()
 {	
 	_cc = Sprite::create();
+	_cc->setPositionY(210);
 	addChild(_cc);
 
 	return true;
