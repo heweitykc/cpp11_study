@@ -4,16 +4,32 @@ USING_NS_CC;
 
 bool Role::init()
 {	
-	
-	auto normal = createAnimation("attack (%d).png", 9, 12);
-	normal->setRestoreOriginalFrame(true);
-	auto animN = Animate::create(normal);
-
 	_cc = Sprite::create();
-	_cc->runAction(RepeatForever::create(animN));
 	addChild(_cc);
 
 	return true;
+}
+
+void Role::stop()
+{
+	if (state == Role::State::STOP) return;
+	state = Role::State::STOP;
+	_cc->stopAllActions();
+	auto normal = createAnimation("stand (%d).png", 8, 12);
+	normal->setRestoreOriginalFrame(true);
+	auto animN = Animate::create(normal);
+	_cc->runAction(RepeatForever::create(animN));
+}
+
+void Role::run()
+{
+	if (state == Role::State::RUN) return;
+	state = Role::State::RUN;
+	_cc->stopAllActions();
+	auto normal = createAnimation("walk (%d).png", 8, 12);
+	normal->setRestoreOriginalFrame(true);
+	auto animN = Animate::create(normal);
+	_cc->runAction(RepeatForever::create(animN));
 }
 
 Animation* Role::createAnimation(const char *fmt, int count, float fps)

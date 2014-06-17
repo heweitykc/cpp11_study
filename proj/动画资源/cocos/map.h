@@ -18,11 +18,14 @@ public:
 
 	// implement the "static node()" method manually
 	CREATE_FUNC(GameMap);
+
 private:
 	Role* _role;
 	cocos2d::Sprite* _bg;
 	cocos2d::Sprite* _road;
 	cocos2d::SpriteBatchNode *_actors;
+
+	void logic(float dt);
 };
 
 #endif // __MAP_SCENE_H__
