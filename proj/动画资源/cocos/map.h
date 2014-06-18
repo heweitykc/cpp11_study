@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "role.h"
+#include "sockdemo.h"
 
 class GameMap : public cocos2d::Layer
 {
@@ -20,6 +21,7 @@ public:
 	CREATE_FUNC(GameMap);
 
 private:
+
 	Role* _role;
 	cocos2d::Sprite* _bg;
 	cocos2d::Sprite* _road;

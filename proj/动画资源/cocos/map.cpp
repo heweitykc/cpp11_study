@@ -1,7 +1,7 @@
 #include "map.h"
+#include "net.h"
 
 USING_NS_CC;
-
 
 Scene* GameMap::scene()
 {
@@ -31,10 +31,10 @@ bool GameMap::init()
 	auto bgsize = _bg->getContentSize();
 	auto size = _road->getContentSize();
 	_bg->setPosition(bgsize.width / 2, bgsize.height / 2 + (size.height-bgsize.height));
-	_road->setPosition(size.width / 2, size.height / 2);	
+	_road->setPosition(size.width / 2,  size.height / 2);	
 
 	_role = Role::create();
-	_role->setPosition(0, 0);
+	_role->setPosition(100, 110);
 	_road->addChild(_role);
 	_role->stop();
 
@@ -42,14 +42,14 @@ bool GameMap::init()
 	listener1->setSwallowTouches(true);
 
 	listener1->onTouchBegan = CC_CALLBACK_2(GameMap::onTouchBegan, this);
-
 	listener1->onTouchMoved = CC_CALLBACK_2(GameMap::onTouchMove, this);
-
 	listener1->onTouchEnded = CC_CALLBACK_2(GameMap::onTouchEnd, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, _road);
 
 	this->schedule(schedule_selector(GameMap::logic));
+
+	NetLayer::getInstance()->connect();
 
 	return true;
 }
@@ -59,7 +59,6 @@ bool GameMap::onTouchBegan(Touch* touch, Event* event)
 	log("onTouchBegan");
 	Vec2 v2 = touch->getLocation();
 	v2 = _road->convertToNodeSpace(v2);
-	v2.y += 100;
 	Vec2 v1 = _role->getPosition();
 	float len = v2.distance(v1);
 	float per = 1.0f / 200.0f;

@@ -36,7 +36,6 @@ void Role::run()
 Animation* Role::createAnimation(const char *fmt, int count, float fps)
 {
 	auto frameCache = SpriteFrameCache::getInstance();
-
 	Vector<SpriteFrame*> animFrames(count);
 	char str[100] = { 0 };
 	for (int i = 1; i <= count; i++){
@@ -44,6 +43,5 @@ Animation* Role::createAnimation(const char *fmt, int count, float fps)
 		auto frame = frameCache->getSpriteFrameByName(str);
 		animFrames.pushBack(frame);
 	}
-
 	return  Animation::createWithSpriteFrames(animFrames, 1 / fps);
 }
