@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "role.h"
+#include "cocostudio/CocoStudio.h"
 
 class GameMap : public cocos2d::Layer
 {
@@ -22,11 +23,11 @@ public:
 	void addRole(RoleModel model);
 	void updateRole(float x, float y);
 	void removeRole();
-	void setCurrent(int id);
-private:
 
+private:
+	cocostudio::Armature *hero;
 	Role* _role;
-	cocos2d::Map<int,Role*> _rlist;
+	cocos2d::Vector<Node*> _rlist;
 	cocos2d::Sprite* _bg;
 	cocos2d::Sprite* _road;
 	cocos2d::SpriteBatchNode *_actors;

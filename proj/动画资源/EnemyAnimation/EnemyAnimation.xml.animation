@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\newcode\cpp11_study\proj\动画资源\EnemyAnimation</ProjectDir>
+  <Version>1.4.0.1</Version>
+  <Resources>E:\newcode\cpp11_study\proj\动画资源\EnemyAnimation\Resources</Resources>
+  <Name>tauren</Name>
+  <JsonFileName>tauren.json</JsonFileName>
+  <JsonFolder>E:\newcode\cpp11_study\proj\动画资源\EnemyAnimation\Json</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <filePath>E:\newcode\cpp11_study\proj\动画资源\EnemyAnimation\EnemyAnimation.xml.animation</filePath>
+  <ProjectType>AnimationProject</ProjectType>
+  <ResRelativePath />
+  <ResourceFileList />
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

@@ -2,6 +2,7 @@
 #include "net.h"
 
 USING_NS_CC;
+using namespace cocostudio;
 
 Scene* GameMap::scene()
 {
@@ -42,7 +43,7 @@ bool GameMap::init()
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, _road);
 
-	this->schedule(schedule_selector(GameMap::logic));
+	this->schedule(schedule_selector(GameMap::logic),0);
 
 	//NetLayer::getInstance()->connect();
 
@@ -51,15 +52,23 @@ bool GameMap::init()
 	model.name = "hello";
 	model.position.set(100,100);
 	addRole(model);
-	setCurrent(model.id);
 	
 	RoleModel model1;
 	model1.id = 101;
 	model1.name = "hel2lo";
-	model1.position.set(200, 100);
+	model1.position.set(200, 120);
 	addRole(model1);
-	//setCurrent(model1.id);
+	
+	_role = dynamic_cast<Role*>(_rlist.at(1));
 
+	ArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(
+		"tauren0.png", "tauren0.plist", "tauren.ExportJson");
+	hero = Armature::create("tauren");
+	hero->getAnimation()->play("loading");
+	hero->setScale(0.5f);
+	hero->setPosition(200,300);
+	_road->addChild(hero);
+	_rlist.pushBack(hero);
 	return true;
 }
 
@@ -69,7 +78,7 @@ void GameMap::addRole(RoleModel model)
 	role->initModel(model);		
 	_road->addChild(role);
 
-	_rlist.insert(model.id, role);
+	_rlist.pushBack(role);
 }
 
 void GameMap::updateRole(float x, float y)
@@ -80,11 +89,6 @@ void GameMap::updateRole(float x, float y)
 void GameMap::removeRole()
 {
 
-}
-
-void GameMap::setCurrent(int id)
-{
-	_role = _rlist.at(id);
 }
 
 bool GameMap::onTouchBegan(Touch* touch, Event* event)
@@ -103,10 +107,14 @@ bool GameMap::onTouchBegan(Touch* touch, Event* event)
 	});
 	_role->stopAllActions();
 	_role->runAction(Sequence::create(MoveTo::create(per*len, v2), action1, NULL));
-	if (v2.x > v1.x)
+	if (v2.x > v1.x){
 		_role->setScaleX(1);
-	else
+		hero->getAnimation()->play("loading");
+	} else {
 		_role->setScaleX(-1);
+		hero->getAnimation()->play("attack");
+	}
+		
 	return true;
 }
 
@@ -121,6 +129,14 @@ void GameMap::onTouchEnd(cocos2d::Touch*, cocos2d::Event*)
 
 void GameMap::logic(float dt)
 {
+	std::sort(_rlist.begin(), _rlist.end(), [this](Node* a, Node* b){
+		return b->getPositionY() < a->getPositionY();
+	});
+	int len = _rlist.size();
+	for (int i = 0; i < len; i++){
+		_road->reorderChild(_rlist.at(i), i);
+	}
+	
 	//_bg->setPositionX(_bg->getPositionX()+1);
 	//保证玩家在视野内
 	auto vsize = Director::getInstance()->getVisibleSize();
