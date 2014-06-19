@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "role.h"
-#include "sockdemo.h"
 
 class GameMap : public cocos2d::Layer
 {
@@ -20,9 +19,14 @@ public:
 	// implement the "static node()" method manually
 	CREATE_FUNC(GameMap);
 
+	void addRole(RoleModel model);
+	void updateRole(float x, float y);
+	void removeRole();
+	void setCurrent(int id);
 private:
 
 	Role* _role;
+	cocos2d::Map<int,Role*> _rlist;
 	cocos2d::Sprite* _bg;
 	cocos2d::Sprite* _road;
 	cocos2d::SpriteBatchNode *_actors;

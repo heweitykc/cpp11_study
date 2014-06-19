@@ -11,6 +11,13 @@ bool Role::init()
 	return true;
 }
 
+void Role::initModel(RoleModel model)
+{
+	_model = model;
+	setPosition(model.position);
+	stop();
+}
+
 void Role::stop()
 {
 	if (state == Role::State::STOP) return;

@@ -31,12 +31,7 @@ bool GameMap::init()
 	auto bgsize = _bg->getContentSize();
 	auto size = _road->getContentSize();
 	_bg->setPosition(bgsize.width / 2, bgsize.height / 2 + (size.height-bgsize.height));
-	_road->setPosition(size.width / 2,  size.height / 2);	
-
-	_role = Role::create();
-	_role->setPosition(100, 110);
-	_road->addChild(_role);
-	_role->stop();
+	_road->setPosition(size.width / 2,  size.height / 2);
 
 	auto listener1 = EventListenerTouchOneByOne::create();
 	listener1->setSwallowTouches(true);
@@ -49,9 +44,47 @@ bool GameMap::init()
 
 	this->schedule(schedule_selector(GameMap::logic));
 
-	NetLayer::getInstance()->connect();
+	//NetLayer::getInstance()->connect();
+
+	RoleModel model;
+	model.id = 100;
+	model.name = "hello";
+	model.position.set(100,100);
+	addRole(model);
+	setCurrent(model.id);
+	
+	RoleModel model1;
+	model1.id = 101;
+	model1.name = "hel2lo";
+	model1.position.set(200, 100);
+	addRole(model1);
+	//setCurrent(model1.id);
 
 	return true;
+}
+
+void GameMap::addRole(RoleModel model)
+{
+	auto role = Role::create();
+	role->initModel(model);		
+	_road->addChild(role);
+
+	_rlist.insert(model.id, role);
+}
+
+void GameMap::updateRole(float x, float y)
+{
+
+}
+
+void GameMap::removeRole()
+{
+
+}
+
+void GameMap::setCurrent(int id)
+{
+	_role = _rlist.at(id);
 }
 
 bool GameMap::onTouchBegan(Touch* touch, Event* event)
