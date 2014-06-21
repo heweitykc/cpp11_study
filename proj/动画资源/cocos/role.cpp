@@ -35,7 +35,7 @@ void Role::run()
 	if (state == Role::State::RUN) return;
 	state = Role::State::RUN;
 	_cc->stopAllActions();
-	auto normal = createAnimation("stand (%d).png", 6, 12);
+	auto normal = createAnimation("move (%d).png", 6, 12);
 	normal->setRestoreOriginalFrame(true);
 	auto animN = Animate::create(normal);
 	_cc->runAction(RepeatForever::create(animN));
@@ -48,7 +48,7 @@ Animation* Role::createAnimation(const char *fmt, int count, float fps)
 	char str[100] = { 0 };
 	for (int i = 1; i <= count; i++){
 		sprintf(str, fmt, i);
-		auto frame = frameCache->getSpriteFrameByName(str);
+		auto frame = frameCache->getSpriteFrameByName(_dir+str);
 		animFrames.pushBack(frame);
 	}
 	return  Animation::createWithSpriteFrames(animFrames, 1 / fps);

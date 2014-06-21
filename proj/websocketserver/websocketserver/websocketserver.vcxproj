@@ -47,7 +47,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -80,10 +80,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\动画资源\cocos\pkgutil.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\动画资源\cocos\pkgutil.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -93,15 +95,17 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\360Downloads\poco-1.4.6p4\poco-1.4.6p4\Foundation\Foundation_vs110.vcxproj">
       <Project>{8164d41d-b053-405b-826c-cf37ac0ef176}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\360Downloads\poco-1.4.6p4\poco-1.4.6p4\Net\Net_vs110.vcxproj">
       <Project>{b057a1fe-09f7-465e-b8b5-e1b659051d76}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\360Downloads\poco-1.4.6p4\poco-1.4.6p4\Util\Util_vs110.vcxproj">
       <Project>{6ff56cdb-787a-4714-a28c-919003f9fa6c}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\pkgutil\Win32Project2\Win32Project2.vcxproj">
-      <Project>{ba3ac8f2-8319-4a70-a76a-4b9a61ca648c}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

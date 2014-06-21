@@ -22,8 +22,8 @@ Scene* GameMap::scene()
 // on "init" you need to initialize your instance
 bool GameMap::init()
 {
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magician/magician.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldiers/soldiers.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magician/magician.plist", "magician/magician.png");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldiers/soldiers.plist","soldiers/soldiers.png");
 
 	_bg = Sprite::create("1.jpg");
 	this->addChild(_bg);
@@ -45,17 +45,15 @@ bool GameMap::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, _road);
 
 	this->schedule(schedule_selector(GameMap::logic),0);
-
-	//NetLayer::getInstance()->connect();
 	
 	RoleModel model;
-	model.id = 100;
+	model.uid = 100;
 	model.name = "hello";
 	model.position.set(100,100);
 	addRole(model,"magician");
 	
 	RoleModel model1;
-	model1.id = 101;
+	model1.uid = 101;
 	model1.name = "hel2lo";
 	model1.position.set(200, 120);
 	addRole(model1, "soldiers");
@@ -70,6 +68,9 @@ bool GameMap::init()
 	hero->setPosition(200,300);
 	_road->addChild(hero);
 	_rlist.pushBack(hero);
+
+	NetLayer::getInstance()->connect();
+
 	return true;
 }
 
@@ -94,7 +95,6 @@ void GameMap::removeRole()
 
 bool GameMap::onTouchBegan(Touch* touch, Event* event)
 {
-	log("onTouchBegan");
 	Vec2 v2 = touch->getLocation();
 	v2 = _road->convertToNodeSpace(v2);
 	Vec2 v1 = _role->getPosition();

@@ -5,7 +5,7 @@
 
 struct RoleModel
 {
-	int id;
+	int uid;
 	std::string name;
 	cocos2d::Vec2 position;
 };

@@ -15,6 +15,8 @@
 #include "Poco/Net/NetException.h"
 #include "Poco/Util/ServerApplication.h"
 
+#include "pkgutil.h"
+
 using namespace Poco;
 using namespace Poco::Net;
 using namespace Poco::Util;
@@ -34,7 +36,9 @@ public:
 			int n;
 			do{
 				n = ws.receiveFrame(buffer, sizeof(buffer), flags);
-				cout << "recv data" << endl;
+				netpack pkg;
+				pkgUtil::unpkg(buffer, &pkg);
+				cout << "in cmd:"<< pkg.cmd << "   msg:" << pkg.raw << endl;
 				ws.sendFrame(buffer, n, flags);
 			} while (n > 0 || (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
 		}

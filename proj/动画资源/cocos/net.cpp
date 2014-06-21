@@ -45,7 +45,7 @@ void NetLayer::close()
 	}
 }
 
-void printRaw(char* data, int len)
+void printRaw(unsigned char* data, int len)
 {
 	int i = 0;
 	printf("raw:");
@@ -54,16 +54,16 @@ void printRaw(char* data, int len)
 	}
 }
 
-void NetLayer::send(std::string& msg)
+void NetLayer::send(std::string& msg, int cmd)
 {
 	log("send %s", msg.data());
 	netpack pack;
 	pack.len = msg.length();
-	pack.cmd = 100;
-	pack.raw = new char[pack.len];
+	pack.cmd = cmd;
+	pack.raw = new unsigned char[pack.len];
 	memcpy(pack.raw, msg.data(), pack.len);
 
-	char *out = new char[pack.len + pkgUtil::HEAD_SIZE];
+	unsigned char *out = new unsigned char[pack.len + pkgUtil::HEAD_SIZE];
 	pkgUtil::pkg(&pack, out);
 	printRaw(out, pack.len + pkgUtil::HEAD_SIZE);
 	_wsi.send((unsigned char*)out, pack.len + pkgUtil::HEAD_SIZE);
@@ -73,7 +73,7 @@ void NetLayer::send(std::string& msg)
 void NetLayer::onOpen(cocos2d::network::WebSocket* ws)
 {
 	log("onOpen ");
-	send(std::string("moon!!"));
+	send(std::string("login"), 1001);
 }
 
 void NetLayer::onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::Data& data)

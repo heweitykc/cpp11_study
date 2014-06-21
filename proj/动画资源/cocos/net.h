@@ -16,7 +16,7 @@ public:
 	void init();
 	void connect();
 	void close();
-	void send(std::string& msg);
+	void send(std::string& msg, int cmd);
 	virtual void onOpen(cocos2d::network::WebSocket* ws);
 	virtual void onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::Data& data);
 	virtual void onClose(cocos2d::network::WebSocket* ws);
