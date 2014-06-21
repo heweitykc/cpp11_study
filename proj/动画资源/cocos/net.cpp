@@ -73,7 +73,7 @@ void NetLayer::send(std::string& msg, int cmd)
 void NetLayer::onOpen(cocos2d::network::WebSocket* ws)
 {
 	log("onOpen ");
-	send(std::string("login"), 1001);
+	send(std::string("login"), pkgUtil::NetProtocol::login);
 }
 
 void NetLayer::onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::Data& data)

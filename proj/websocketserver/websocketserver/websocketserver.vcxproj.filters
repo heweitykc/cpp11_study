@@ -24,6 +24,9 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="world.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\动画资源\cocos\pkgutil.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="websocketserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="world.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\..\动画资源\cocos\pkgutil.cpp">

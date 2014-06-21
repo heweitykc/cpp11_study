@@ -2,13 +2,7 @@
 #define __ROLE_H__
 
 #include "cocos2d.h"
-
-struct RoleModel
-{
-	int uid;
-	std::string name;
-	cocos2d::Vec2 position;
-};
+#include "pkgutil.h"
 
 class Role : public cocos2d::Layer
 {

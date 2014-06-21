@@ -15,7 +15,7 @@ void Role::initModel(RoleModel model, std::string dir)
 {
 	_dir = dir;
 	_model = model;
-	setPosition(model.position);
+	setPosition(Vec2(_model.x,_model.y));
 	stop();
 }
 

@@ -49,13 +49,15 @@ bool GameMap::init()
 	RoleModel model;
 	model.uid = 100;
 	model.name = "hello";
-	model.position.set(100,100);
+	model.x = 100;
+	model.y = 100;
 	addRole(model,"magician");
 	
 	RoleModel model1;
 	model1.uid = 101;
 	model1.name = "hel2lo";
-	model1.position.set(200, 120);
+	model.x = 200;
+	model.y = 120;
 	addRole(model1, "soldiers");
 	
 	_role = dynamic_cast<Role*>(_rlist.at(1));

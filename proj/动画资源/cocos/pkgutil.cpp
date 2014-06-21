@@ -36,7 +36,7 @@ void pkgUtil::pkg(netpack *pack, unsigned char* out)
 
 void pkgUtil::unpkg(const char* in, netpack *pack)
 {
-	int len = (*(in + 3)) + ((*(in + 2)) << 8) + ((*(in + 1)) << 16) + ((*in) << 24);
+	int len = (unsigned char)(*(in + 3)) + ((unsigned char)(*(in + 2)) << 8) + ((unsigned char)(*(in + 1)) << 16) + (unsigned char)((*in) << 24);
 	int cmd = (unsigned char)(*(in + 7)) + ((unsigned char)(*(in + 6)) << 8) + ((unsigned char)(*(in + 5)) << 16) + ((unsigned char)(*(in + 4)) << 24);
 	pack->raw = new unsigned char[len];
 	pack->len = len;

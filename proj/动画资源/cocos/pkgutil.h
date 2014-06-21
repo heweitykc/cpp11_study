@@ -6,9 +6,9 @@
 
 /*
 1001(login)	->{}   <-{uid}
-2(addrole) <<-{uid}
-3(rmrole)  <<-{uid}
-4(mvrole)  ->{x,y}	<<-{uid,x,y}
+1002(addrole) <<-{uid}
+1003(rmrole)  <<-{uid}
+1004(mvrole)  ->{x,y}	<<-{uid,x,y}
 5
 6
 7
@@ -20,9 +20,18 @@ struct netpack{
 	unsigned char* raw;		//Êý¾Ý
 };
 
+struct RoleModel
+{
+	int uid;
+	std::string name;
+	float x;
+	float y;
+};
+
 class pkgUtil
 {
 public:
+	static enum NetProtocol{ login=1001, addrole=1002, rmrole=1003,mvrole=1004  };
 	static const int HEAD_SIZE = 8;
 	static void printRaw(unsigned char* data, int len);
 	static void pkg(netpack *pack, unsigned char* out);						//·â°ü
