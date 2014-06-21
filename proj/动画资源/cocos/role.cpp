@@ -11,8 +11,9 @@ bool Role::init()
 	return true;
 }
 
-void Role::initModel(RoleModel model)
+void Role::initModel(RoleModel model, std::string dir)
 {
+	_dir = dir;
 	_model = model;
 	setPosition(model.position);
 	stop();
@@ -23,7 +24,7 @@ void Role::stop()
 	if (state == Role::State::STOP) return;
 	state = Role::State::STOP;
 	_cc->stopAllActions();
-	auto normal = createAnimation("stand (%d).png", 8, 12);
+	auto normal = createAnimation("stand (%d).png", 6, 12);
 	normal->setRestoreOriginalFrame(true);
 	auto animN = Animate::create(normal);
 	_cc->runAction(RepeatForever::create(animN));
@@ -34,7 +35,7 @@ void Role::run()
 	if (state == Role::State::RUN) return;
 	state = Role::State::RUN;
 	_cc->stopAllActions();
-	auto normal = createAnimation("walk (%d).png", 8, 12);
+	auto normal = createAnimation("stand (%d).png", 6, 12);
 	normal->setRestoreOriginalFrame(true);
 	auto animN = Animate::create(normal);
 	_cc->runAction(RepeatForever::create(animN));

@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.3.2</string>
+        <string>3.3.4</string>
         <key>fileName</key>
-        <string>D:/newcode/cpp11_study/proj/动画资源/soldier.tps</string>
+        <string>E:/newcode/cpp11_study/proj/动画资源/soldier.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -64,7 +64,7 @@
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
-        <string></string>
+        <string>soldiers</string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>

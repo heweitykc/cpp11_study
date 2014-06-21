@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\newcode\cpp11_study\proj\动画资源\HeroAnimation</ProjectDir>
+  <Version>1.4.0.1</Version>
+  <Resources>E:\newcode\cpp11_study\proj\动画资源\HeroAnimation\Resources</Resources>
+  <Name>Hero</Name>
+  <JsonFileName>Hero.json</JsonFileName>
+  <JsonFolder>E:\newcode\cpp11_study\proj\动画资源\HeroAnimation\Json</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <filePath>E:\newcode\cpp11_study\proj\动画资源\HeroAnimation\HeroAnimation.xml.animation</filePath>
+  <ProjectType>AnimationProject</ProjectType>
+  <ResRelativePath />
+  <ResourceFileList>
+    <string>blood.plist</string>
+    <string>Hero0.plist</string>
+  </ResourceFileList>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

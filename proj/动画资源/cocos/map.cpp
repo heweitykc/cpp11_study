@@ -22,7 +22,8 @@ Scene* GameMap::scene()
 // on "init" you need to initialize your instance
 bool GameMap::init()
 {
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magician.plist");
+	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magician/magician.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("soldiers/soldiers.plist");
 
 	_bg = Sprite::create("1.jpg");
 	this->addChild(_bg);
@@ -46,23 +47,23 @@ bool GameMap::init()
 	this->schedule(schedule_selector(GameMap::logic),0);
 
 	//NetLayer::getInstance()->connect();
-
+	
 	RoleModel model;
 	model.id = 100;
 	model.name = "hello";
 	model.position.set(100,100);
-	addRole(model);
+	addRole(model,"magician");
 	
 	RoleModel model1;
 	model1.id = 101;
 	model1.name = "hel2lo";
 	model1.position.set(200, 120);
-	addRole(model1);
+	addRole(model1, "soldiers");
 	
 	_role = dynamic_cast<Role*>(_rlist.at(1));
 
 	ArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(
-		"tauren0.png", "tauren0.plist", "tauren.ExportJson");
+		"tauren/tauren0.png", "tauren/tauren0.plist", "tauren/tauren.ExportJson");
 	hero = Armature::create("tauren");
 	hero->getAnimation()->play("loading");
 	hero->setScale(0.5f);
@@ -72,10 +73,10 @@ bool GameMap::init()
 	return true;
 }
 
-void GameMap::addRole(RoleModel model)
+void GameMap::addRole(RoleModel model, std::string dir)
 {
 	auto role = Role::create();
-	role->initModel(model);		
+	role->initModel(model, dir);
 	_road->addChild(role);
 
 	_rlist.pushBack(role);

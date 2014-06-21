@@ -881,13 +881,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>soldiers.png</string>
+            <string>soldiers/soldiers.png</string>
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ed81e466cc95425b77d2b5598aac503e:8dca5cd407f8d1d08a926690c59ec301:54157a3c4366c38388c96b01b151b9c3$</string>
+            <string>$TexturePacker:SmartUpdate:ede27ddad75d4a3fc3dd96d6be8145ef:8dca5cd407f8d1d08a926690c59ec301:54157a3c4366c38388c96b01b151b9c3$</string>
             <key>textureFileName</key>
-            <string>soldiers.png</string>
+            <string>soldiers/soldiers.png</string>
         </dict>
     </dict>
 </plist>

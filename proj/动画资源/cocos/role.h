@@ -16,7 +16,7 @@ public:
 	enum State{ STOP, RUN};
 	virtual bool init();	
 	CREATE_FUNC(Role);
-	void initModel(RoleModel model);
+	void initModel(RoleModel model, std::string dir);
 	void stop();
 	void run();	
 private:
@@ -24,6 +24,7 @@ private:
 	cocos2d::Animation* createAnimation(const char *fmt, int count, float fps);
 	State state;
 	RoleModel _model;
+	std::string _dir;
 };
 
 #endif

@@ -20,7 +20,7 @@ public:
 	// implement the "static node()" method manually
 	CREATE_FUNC(GameMap);
 
-	void addRole(RoleModel model);
+	void addRole(RoleModel model, std::string dir);
 	void updateRole(float x, float y);
 	void removeRole();
 

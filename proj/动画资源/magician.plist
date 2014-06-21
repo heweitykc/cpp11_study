@@ -712,13 +712,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>magician.png</string>
+            <string>magician/magician.png</string>
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f88c318700b82b7a76a0d2824ca417fd:b966283c5f2d39bfda9c558129a2ac70:0e556067f91d62242bbcc8a39bcef4c3$</string>
+            <string>$TexturePacker:SmartUpdate:18dee2f981abf03487a6003cc4e10d57:b966283c5f2d39bfda9c558129a2ac70:0e556067f91d62242bbcc8a39bcef4c3$</string>
             <key>textureFileName</key>
-            <string>magician.png</string>
+            <string>magician/magician.png</string>
         </dict>
     </dict>
 </plist>
