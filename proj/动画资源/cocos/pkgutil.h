@@ -22,7 +22,7 @@ struct netpack{
 
 struct RoleModel
 {
-	int uid;
+	unsigned int uid;
 	std::string name;
 	float x;
 	float y;
@@ -35,8 +35,9 @@ public:
 	static const int HEAD_SIZE = 8;
 	static void printRaw(unsigned char* data, int len);
 	static void pkg(netpack *pack, unsigned char* out);						//封包
-	static void unpkg(const char* in, netpack *pack);			//解包
-
+	static void unpkg(const unsigned char* in, netpack *pack);			//解包
+	static void fillInt(unsigned char* in, int pos, unsigned int intVar);
+	static unsigned int getInt(const unsigned char* in, int pos);
 	pkgUtil();
 	void append(const char* str, int len);
 	void getNext(netpack* pack);

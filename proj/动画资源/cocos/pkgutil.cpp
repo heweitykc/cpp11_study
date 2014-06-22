@@ -13,19 +13,26 @@ void pkgUtil::printRaw(unsigned char* data, int len)
 	printf("\n");
 }
 
+void pkgUtil::fillInt(unsigned char* in, int pos, unsigned int intVar)
+{
+	in[pos + 3] = intVar & 0xff;
+	in[pos + 2] = (intVar & 0xff00) >> 8;
+	in[pos + 1] = (intVar & 0xff0000) >> 16;
+	in[pos] = (intVar & 0xff000000) >> 24;
+}
+
+unsigned int pkgUtil::getInt(const unsigned char* in, int pos)
+{
+	return (unsigned char)(*(in + pos + 3)) 
+		+ ((unsigned char)(*(in + pos + 2)) << 8) 
+		+ ((unsigned char)(*(in + pos + 1)) << 16) 
+		+ ((unsigned char)(*(in + pos)) << 16);
+}
+
 void pkgUtil::pkg(netpack *pack, unsigned char* out)
 {
-	int intVar = pack->len;
-	out[3] = intVar & 0xff;
-	out[2] = (intVar & 0xff00)>>8;
-	out[1] = (intVar & 0xff0000)>>16;
-	out[0] = (intVar & 0xff000000)>>24;
-
-	intVar = pack->cmd;
-	out[7] = intVar & 0xff;
-	out[6] = (intVar & 0xff00)>>8;
-	out[5] = (intVar & 0xff0000) >> 16;
-	out[4] = (intVar & 0xff000000) >> 24;
+	fillInt(out, 0, pack->len);
+	fillInt(out, 4, pack->cmd);
 
 	unsigned int i = 0;
 	while (i < pack->len){
@@ -34,10 +41,10 @@ void pkgUtil::pkg(netpack *pack, unsigned char* out)
 	}
 }
 
-void pkgUtil::unpkg(const char* in, netpack *pack)
+void pkgUtil::unpkg(const unsigned char* in, netpack *pack)
 {
-	int len = (unsigned char)(*(in + 3)) + ((unsigned char)(*(in + 2)) << 8) + ((unsigned char)(*(in + 1)) << 16) + (unsigned char)((*in) << 24);
-	int cmd = (unsigned char)(*(in + 7)) + ((unsigned char)(*(in + 6)) << 8) + ((unsigned char)(*(in + 5)) << 16) + ((unsigned char)(*(in + 4)) << 24);
+	int len = getInt(in, 0);
+	int cmd = getInt(in, 4);
 	pack->raw = new unsigned char[len];
 	pack->len = len;
 	pack->cmd = cmd;

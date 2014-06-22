@@ -16,7 +16,7 @@ public:
 	world();
 	Role* add(Poco::Net::WebSocket *sock);
 	void loop();
-	void rm(Role* role);
+	void rm(Poco::Net::WebSocket* ws);
 private:
 	std::vector<Role*> _list;
 	unsigned int _cnt;

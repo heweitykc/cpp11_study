@@ -23,6 +23,7 @@ public:
 	virtual void onError(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::ErrorCode& error);
 private:
 	network::WebSocket _wsi;
+	int _uid;
 };
 
 #endif

@@ -30,6 +30,9 @@
     <ClInclude Include="..\..\动画资源\cocos\pkgutil.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="netHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\..\动画资源\cocos\pkgutil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="netHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

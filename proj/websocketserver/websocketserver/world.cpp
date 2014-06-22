@@ -13,14 +13,22 @@ Role* world::add(Poco::Net::WebSocket *sock)
 	role->model.uid = _cnt;
 	role->sock = sock;
 	_list.push_back(role);
-	std::cout << role->model.uid << "  entered" << std::endl;
+	std::cout << role->model.uid << "  entered, current=" << _list.size() << std::endl;
 	return role;
 }
 
-void world::rm(Role* role)
+void world::rm(Poco::Net::WebSocket* ws)
 {
-	std::cout << role->model.uid << "   closed" << std::endl;
-	std::remove(_list.begin(), _list.end(), role);
+	std::vector<Role*>::iterator itr = std::find_if(
+		_list.begin(),
+		_list.end(), [&](Role* role){ return role->sock == ws; }
+	);
+	std::cout << "closed uid =" << (*itr)->model.uid << std::endl;
+
+	_list.erase(std::remove_if(_list.begin(), 
+										_list.end(),
+										[&](Role* role){return role->sock == ws;}
+	), _list.end());
 }
 
 void world::loop()

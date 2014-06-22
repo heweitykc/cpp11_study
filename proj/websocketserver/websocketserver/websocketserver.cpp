@@ -20,6 +20,7 @@
 
 #include "pkgutil.h"
 #include "world.h"
+#include "netHandler.h"
 
 using namespace Poco;
 using namespace Poco::Net;
@@ -28,35 +29,24 @@ using namespace Poco::Util;
 using namespace std;
 
 world gameWorld;
+netHandler handler(gameWorld);
 
 class WebSocketRequestHandler : public Poco::Net::HTTPRequestHandler
 {
 public:
 	void handleRequest(HTTPServerRequest& request, HTTPServerResponse& response)
 	{
-		Role* role;
-		try
-		{
-			WebSocket* ws = new WebSocket(request, response);
-			char buffer[1024];
-			int flags;
-			int n;
+		WebSocket* ws = new WebSocket(request, response);
+		unsigned char buffer[1024];
+		int flags;
+		int n;
+		try{
 			do{
 				n = ws->receiveFrame(buffer, sizeof(buffer), flags);
-				netpack pkg;
-				pkgUtil::unpkg(buffer, &pkg);
-				cout << "in cmd:"<< pkg.cmd << "   msg:" << pkg.raw << endl;
-				if (pkg.cmd == pkgUtil::NetProtocol::login){
-					role = gameWorld.add(ws);
-				}
-				ws->sendFrame(buffer, n, flags);
+				handler.excute(buffer, ws, flags);
 			} while (n > 0 || (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
 		}
 		catch (Poco::Net::NetException& exc)
-		{
-			
-		}
-		catch (WebSocketException& exc)
 		{
 			switch (exc.code())
 			{
@@ -72,7 +62,7 @@ public:
 				break;
 			}
 		}
-		gameWorld.rm(role);
+		handler.close(ws);
 	}
 };
 
