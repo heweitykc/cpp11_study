@@ -80,15 +80,14 @@ void NetLayer::onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network
 {
 	netpack pack;
 	pkgUtil::unpkg((unsigned char*)data.bytes,&pack);
-	char* str = new char[pack.len+1];
-	memset(str, 0, pack.len + 1);
-	memcpy(str,pack.raw,pack.len);
-	log("recv %s, len = %d, cmd=%d", str, pack.len, pack.cmd);
 	if (pack.cmd == pkgUtil::NetProtocol::login){
 		_uid = pkgUtil::getInt(pack.raw, 0);
 		log("login uid=%d", _uid);
 	} else if (pack.cmd == pkgUtil::NetProtocol::addrole){
-
+		int uid = pkgUtil::getInt(pack.raw, 0);
+		int x = pkgUtil::getInt(pack.raw, 4);
+		int y = pkgUtil::getInt(pack.raw, 8);
+		log("addrole=%d,x=%d,y=%d", uid, x, y);
 	}
 }
 

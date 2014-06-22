@@ -14,6 +14,7 @@ class world
 {
 public:
 	world();
+	std::vector<Role*> getList();
 	Role* add(Poco::Net::WebSocket *sock);
 	void loop();
 	void rm(Poco::Net::WebSocket* ws);

@@ -24,8 +24,8 @@ struct RoleModel
 {
 	unsigned int uid;
 	std::string name;
-	float x;
-	float y;
+	int x;
+	int y;
 };
 
 class pkgUtil

@@ -47,3 +47,8 @@ void world::loop()
 	}
 	delete[] out;
 }
+
+std::vector<Role*> world::getList()
+{
+	return _list;
+}

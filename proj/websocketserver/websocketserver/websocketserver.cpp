@@ -87,6 +87,7 @@ protected:
 		_timer.scheduleAtFixedRate(ptask, 0,1500);
 
 		ServerSocket ss(8080);
+		ss.setSendTimeout(60000000);
 		HTTPServer server(new WebSocketRequestHandlerFactory, ss, new HTTPServerParams);
 		server.start();
 		waitForTerminationRequest();
