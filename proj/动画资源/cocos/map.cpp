@@ -56,8 +56,8 @@ bool GameMap::init()
 	RoleModel model1;
 	model1.uid = 101;
 	model1.name = "hel2lo";
-	model.x = 200;
-	model.y = 120;
+	model1.x = 200;
+	model1.y = 120;
 	addRole(model1, "soldiers");
 	
 	_role = dynamic_cast<Role*>(_rlist.at(1));
@@ -117,7 +117,9 @@ bool GameMap::onTouchBegan(Touch* touch, Event* event)
 		_role->setScaleX(-1);
 		hero->getAnimation()->play("attack");
 	}
-		
+
+	//NetLayer::getInstance()->send(std::string("move"), pkgUtil::NetProtocol::mvrole);
+
 	return true;
 }
 

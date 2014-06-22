@@ -31,7 +31,7 @@ struct RoleModel
 class pkgUtil
 {
 public:
-	static enum NetProtocol{ login=1001, addrole=1002, rmrole=1003,mvrole=1004  };
+	static enum NetProtocol{ login=1001, addrole=1002, rmrole=1003,mvrole=1004, beat=100000  };
 	static const int HEAD_SIZE = 8;
 	static void printRaw(unsigned char* data, int len);
 	static void pkg(netpack *pack, unsigned char* out);						//·â°ü

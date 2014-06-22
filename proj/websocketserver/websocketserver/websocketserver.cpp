@@ -14,8 +14,12 @@
 #include "Poco/Net/ServerSocket.h"
 #include "Poco/Net/NetException.h"
 #include "Poco/Util/ServerApplication.h"
+#include "Poco/Util/Timer.h"
+#include "Poco/Util/TimerTask.h"
+#include "Poco/Util/TimerTaskAdapter.h"
 
 #include "pkgutil.h"
+#include "world.h"
 
 using namespace Poco;
 using namespace Poco::Net;
@@ -23,24 +27,34 @@ using namespace Poco::Util;
 
 using namespace std;
 
+world gameWorld;
+
 class WebSocketRequestHandler : public Poco::Net::HTTPRequestHandler
 {
 public:
 	void handleRequest(HTTPServerRequest& request, HTTPServerResponse& response)
 	{
+		Role* role;
 		try
 		{
-			WebSocket ws(request, response);
+			WebSocket* ws = new WebSocket(request, response);
 			char buffer[1024];
 			int flags;
 			int n;
 			do{
-				n = ws.receiveFrame(buffer, sizeof(buffer), flags);
+				n = ws->receiveFrame(buffer, sizeof(buffer), flags);
 				netpack pkg;
 				pkgUtil::unpkg(buffer, &pkg);
 				cout << "in cmd:"<< pkg.cmd << "   msg:" << pkg.raw << endl;
-				ws.sendFrame(buffer, n, flags);
+				if (pkg.cmd == pkgUtil::NetProtocol::login){
+					role = gameWorld.add(ws);
+				}
+				ws->sendFrame(buffer, n, flags);
 			} while (n > 0 || (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
+		}
+		catch (Poco::Net::NetException& exc)
+		{
+			
 		}
 		catch (WebSocketException& exc)
 		{
@@ -58,6 +72,7 @@ public:
 				break;
 			}
 		}
+		gameWorld.rm(role);
 	}
 };
 
@@ -72,9 +87,15 @@ public:
 
 class MyServerApp : public ServerApplication
 {
+private:
+	Timer _timer;
 protected:
 	int main(const vector<string> &)
-	{
+	{		
+		Timestamp time;
+		TimerTask::Ptr ptask = new TimerTaskAdapter<MyServerApp>(*this, &MyServerApp::onTimer);
+		_timer.scheduleAtFixedRate(ptask, 0,1500);
+
 		ServerSocket ss(8080);
 		HTTPServer server(new WebSocketRequestHandlerFactory, ss, new HTTPServerParams);
 		server.start();
@@ -82,10 +103,14 @@ protected:
 		server.stop();
 		return 0;
 	}
+
+	void onTimer(TimerTask& task)
+	{
+		gameWorld.loop();
+	}
 };
 
+MyServerApp app;
 int main(int argc, char** argv) {
-	MyServerApp app;
-	
 	return app.run(argc, argv);
 }
