@@ -1,5 +1,5 @@
 #include "net.h"
-#include "pkgutil.h"
+
 
 static NetLayer* instance = nullptr;
 
@@ -54,26 +54,29 @@ void printRaw(unsigned char* data, int len)
 	}
 }
 
-void NetLayer::send(std::string& msg, int cmd)
+void NetLayer::clientLogin()
 {
-	log("send %s", msg.data());
 	netpack pack;
-	pack.len = msg.length();
-	pack.cmd = cmd;
-	pack.raw = new unsigned char[pack.len];
-	memcpy(pack.raw, msg.data(), pack.len);
+	pack.cmd = pkgUtil::NetProtocol::login;
+	pack.len = 0;
+	send(pack);
+}
 
-	unsigned char *out = new unsigned char[pack.len + pkgUtil::HEAD_SIZE];
-	pkgUtil::pkg(&pack, out);
-	printRaw(out, pack.len + pkgUtil::HEAD_SIZE);
-	_wsi.send((unsigned char*)out, pack.len + pkgUtil::HEAD_SIZE);
-	delete[] out;
+void NetLayer::clientMove(int x, int y)
+{
+	netpack pack;
+	pack.cmd = pkgUtil::NetProtocol::mvrole;
+	pack.len = 8;
+	pack.raw = new unsigned char[8];
+	pkgUtil::fillInt(pack.raw, 0, x);
+	pkgUtil::fillInt(pack.raw, 4, y);
+	send(pack);
 }
 
 void NetLayer::onOpen(cocos2d::network::WebSocket* ws)
 {
 	log("onOpen ");
-	send(std::string("login"), pkgUtil::NetProtocol::login);
+	clientLogin();
 }
 
 void NetLayer::onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::Data& data)
@@ -100,4 +103,13 @@ void NetLayer::onClose(cocos2d::network::WebSocket* ws)
 void NetLayer::onError(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::ErrorCode& error)
 {
 	log("onError ");
+}
+
+void NetLayer::send(netpack& pack)
+{
+	unsigned char *out = new unsigned char[pack.len + pkgUtil::HEAD_SIZE];
+	pkgUtil::pkg(&pack, out);
+	printRaw(out, pack.len + pkgUtil::HEAD_SIZE);
+	_wsi.send((unsigned char*)out, pack.len + pkgUtil::HEAD_SIZE);
+	delete[] out;
 }

@@ -62,7 +62,7 @@ bool GameMap::init()
 	
 	_role = dynamic_cast<Role*>(_rlist.at(1));
 
-	ArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(
+	ArmatureDataManager::getInstance()->addArmatureFileInfo(
 		"tauren/tauren0.png", "tauren/tauren0.plist", "tauren/tauren.ExportJson");
 	hero = Armature::create("tauren");
 	hero->getAnimation()->play("loading");
@@ -118,8 +118,7 @@ bool GameMap::onTouchBegan(Touch* touch, Event* event)
 		hero->getAnimation()->play("attack");
 	}
 
-	//NetLayer::getInstance()->send(std::string("move"), pkgUtil::NetProtocol::mvrole);
-
+	NetLayer::getInstance()->clientMove(v2.x,v2.y);
 	return true;
 }
 

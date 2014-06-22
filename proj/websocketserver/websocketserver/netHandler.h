@@ -15,6 +15,7 @@ private:
 	world _world;
 
 	void send(Poco::Net::WebSocket* ws, netpack& pack, int flag);
+
 	void login(Poco::Net::WebSocket* ws, Role* role, int flag);
 	void syncWorld(Poco::Net::WebSocket* ws, int flag);
 	void syncRole(Poco::Net::WebSocket* ws, Role* role, int flag);

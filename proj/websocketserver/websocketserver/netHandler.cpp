@@ -20,6 +20,8 @@ void netHandler::excute(unsigned char* buffer, WebSocket* ws, int flag)
 		Role* role = _world.add(ws);
 		login(ws, role, flag);
 		syncWorld(ws, flag);
+	} else if (pkg.cmd == pkgUtil::NetProtocol::mvrole){
+
 	}
 }
 
