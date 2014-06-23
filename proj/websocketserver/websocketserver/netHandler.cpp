@@ -14,12 +14,13 @@ void netHandler::excute(unsigned char* buffer, WebSocket* ws, int flag)
 {
 	netpack pkg;
 	pkgUtil::unpkg(buffer, &pkg);
-	cout << "in cmd:" << pkg.cmd << "   msg:" << pkg.raw << endl;
+	cout << "recv cmd:" << pkg.cmd << "   msg:" << pkg.raw << endl;
 
 	if (pkg.cmd == pkgUtil::NetProtocol::login){
-		Role* role = _world.add(ws);
-		login(ws, role, flag);
+		Role* newrole = _world.add(ws);
+		login(ws, newrole, flag);
 		syncWorld(ws, flag);
+		syncNewRole(newrole);
 	} else if (pkg.cmd == pkgUtil::NetProtocol::mvrole){
 
 	}
@@ -43,6 +44,15 @@ void netHandler::syncRole(Poco::Net::WebSocket* ws, Role* role, int flag)
 	pkgUtil::fillInt(pack.raw, 4, role->model.x);
 	pkgUtil::fillInt(pack.raw, 8, role->model.y);
 	send(ws, pack, flag);
+}
+
+void netHandler::syncNewRole(Role* newrole)
+{
+	vector<Role*> list = _world.getList();
+	for each (Role* role in list){
+		if (role == newrole) continue;
+		syncRole(role->sock, newrole, 129);
+	}
 }
 
 void netHandler::login(Poco::Net::WebSocket* ws, Role* role, int flag)

@@ -11,8 +11,8 @@ Role* world::add(Poco::Net::WebSocket *sock)
 	_cnt++;
 	Role *role = new Role();
 	role->model.uid = _cnt;
-	role->model.x = 0;
-	role->model.y = 0;
+	role->model.x = 0 + (_cnt-1000) * 50;
+	role->model.y = 30;
 	role->sock = sock;
 	_list.push_back(role);
 	std::cout << role->model.uid << "  entered, current=" << _list.size() << std::endl;

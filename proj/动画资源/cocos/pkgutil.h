@@ -5,13 +5,16 @@
 #include <vector>
 
 /*
-1001(login)	->{}   <-{uid}
+->     request
+<-     response
+<<-  push
+1001(login)	  ->{}        <-{uid}
 1002(addrole) <<-{uid}
 1003(rmrole)  <<-{uid}
 1004(mvrole)  ->{x,y}	<<-{uid,x,y}
-5
-6
-7
+1005
+1006
+1007
 */
 
 struct netpack{

@@ -1,5 +1,5 @@
 #include "net.h"
-
+#include "events.h"
 
 static NetLayer* instance = nullptr;
 
@@ -14,7 +14,7 @@ NetLayer* NetLayer::getInstance()
 
 NetLayer::NetLayer()
 {
-	
+	dispatcher.setEnabled(true);
 }
 
 NetLayer::~NetLayer()
@@ -83,14 +83,21 @@ void NetLayer::onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network
 {
 	netpack pack;
 	pkgUtil::unpkg((unsigned char*)data.bytes,&pack);
+
 	if (pack.cmd == pkgUtil::NetProtocol::login){
 		_uid = pkgUtil::getInt(pack.raw, 0);
 		log("login uid=%d", _uid);
+
+		dispatcher.dispatchCustomEvent(NET_LOGIN);
 	} else if (pack.cmd == pkgUtil::NetProtocol::addrole){
-		int uid = pkgUtil::getInt(pack.raw, 0);
-		int x = pkgUtil::getInt(pack.raw, 4);
-		int y = pkgUtil::getInt(pack.raw, 8);
-		log("addrole=%d,x=%d,y=%d", uid, x, y);
+		Add_Role addrole;
+		addrole.uid = pkgUtil::getInt(pack.raw, 0);
+		addrole.x = pkgUtil::getInt(pack.raw, 4);
+		addrole.y = pkgUtil::getInt(pack.raw, 8);
+		addrole.isHero = (_uid == addrole.uid);
+		log("addrole=%d,x=%d,y=%d", addrole.uid, addrole.x, addrole.y);
+
+		dispatcher.dispatchCustomEvent(NET_ADDROLE, &addrole);
 	}
 }
 

@@ -1,5 +1,6 @@
 #include "map.h"
 #include "net.h"
+#include "events.h"
 
 USING_NS_CC;
 using namespace cocostudio;
@@ -44,24 +45,6 @@ bool GameMap::init()
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, _road);
 
-	this->schedule(schedule_selector(GameMap::logic),0);
-	
-	RoleModel model;
-	model.uid = 100;
-	model.name = "hello";
-	model.x = 100;
-	model.y = 100;
-	addRole(model,"magician");
-	
-	RoleModel model1;
-	model1.uid = 101;
-	model1.name = "hel2lo";
-	model1.x = 200;
-	model1.y = 120;
-	addRole(model1, "soldiers");
-	
-	_role = dynamic_cast<Role*>(_rlist.at(1));
-
 	ArmatureDataManager::getInstance()->addArmatureFileInfo(
 		"tauren/tauren0.png", "tauren/tauren0.plist", "tauren/tauren.ExportJson");
 	hero = Armature::create("tauren");
@@ -72,17 +55,25 @@ bool GameMap::init()
 	_rlist.pushBack(hero);
 
 	NetLayer::getInstance()->connect();
+	auto loginListener = EventListenerCustom::create(NET_LOGIN,      CC_CALLBACK_1(GameMap::onLogin,     this));
+	auto addroleListener = EventListenerCustom::create(NET_ADDROLE, CC_CALLBACK_1(GameMap::onAddRole, this));
+	NetLayer::getInstance()->dispatcher.addEventListenerWithFixedPriority(loginListener, 1);
+	NetLayer::getInstance()->dispatcher.addEventListenerWithFixedPriority(addroleListener, 1);
+
+	_role = nullptr;
 
 	return true;
 }
 
-void GameMap::addRole(RoleModel model, std::string dir)
+Role* GameMap::addRole(RoleModel model, std::string dir)
 {
 	auto role = Role::create();
 	role->initModel(model, dir);
 	_road->addChild(role);
 
 	_rlist.pushBack(role);
+
+	return role;
 }
 
 void GameMap::updateRole(float x, float y)
@@ -108,6 +99,7 @@ bool GameMap::onTouchBegan(Touch* touch, Event* event)
 		[&](){
 		_role->stop();
 	});
+
 	_role->stopAllActions();
 	_role->runAction(Sequence::create(MoveTo::create(per*len, v2), action1, NULL));
 	if (v2.x > v1.x){
@@ -122,13 +114,34 @@ bool GameMap::onTouchBegan(Touch* touch, Event* event)
 	return true;
 }
 
-void GameMap::onTouchMove(cocos2d::Touch*, cocos2d::Event*)
+void GameMap::onTouchMove(Touch*, Event*)
 {
 
 }
-void GameMap::onTouchEnd(cocos2d::Touch*, cocos2d::Event*)
+void GameMap::onTouchEnd(Touch*, Event*)
 {
 
+}
+
+void GameMap::onLogin(EventCustom* event)
+{
+	log("login event");
+}
+
+void GameMap::onAddRole(EventCustom* event)
+{
+	Add_Role* addrole = static_cast<Add_Role*>(event->getUserData());
+	log("addrole %d,%d,%d", addrole->uid, addrole->x, addrole->y);
+	RoleModel model;
+	model.uid = addrole->uid;
+	model.name = "hello";
+	model.x = addrole->x;
+	model.y = addrole->y;
+	Role* role = addRole(model, "magician");
+	if (addrole->isHero){
+		_role = role;
+		this->schedule(schedule_selector(GameMap::logic), 0);
+	}
 }
 
 void GameMap::logic(float dt)
@@ -141,7 +154,8 @@ void GameMap::logic(float dt)
 		_road->reorderChild(_rlist.at(i), i);
 	}
 	
-	//_bg->setPositionX(_bg->getPositionX()+1);
+	if (!_role) return;
+
 	//保证玩家在视野内
 	auto vsize = Director::getInstance()->getVisibleSize();
 	auto size = _road->getContentSize();

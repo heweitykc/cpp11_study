@@ -27,13 +27,11 @@ public:
 	virtual void onClose(cocos2d::network::WebSocket* ws);
 	virtual void onError(cocos2d::network::WebSocket* ws, const cocos2d::network::WebSocket::ErrorCode& error);
 
-	void setEventDispatcher(EventDispatcher* dispatcher);
-	EventDispatcher* getEventDispatcher() const { return _dispatcher; };
+	EventDispatcher dispatcher;
 
 private:
 	network::WebSocket _wsi;
-	int _uid;
-	EventDispatcher* _dispatcher;
+	int _uid;	
 };
 
 #endif

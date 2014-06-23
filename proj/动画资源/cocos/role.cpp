@@ -8,6 +8,9 @@ bool Role::init()
 	_cc->setPositionY(210);
 	addChild(_cc);
 
+	_titletxt = Label::create();
+	addChild(_titletxt);
+	
 	return true;
 }
 
@@ -17,6 +20,10 @@ void Role::initModel(RoleModel model, std::string dir)
 	_model = model;
 	setPosition(Vec2(_model.x,_model.y));
 	stop();
+
+	char titlestr[256] = {0};
+	std::sprintf(titlestr, "player%d", _model.uid);
+	_titletxt->setString(titlestr);
 }
 
 void Role::stop()

@@ -20,7 +20,7 @@ public:
 	// implement the "static node()" method manually
 	CREATE_FUNC(GameMap);
 
-	void addRole(RoleModel model, std::string dir);
+	Role* addRole(RoleModel model, std::string dir);
 	void updateRole(float x, float y);
 	void removeRole();
 
@@ -36,6 +36,9 @@ private:
 	void onTouchMove(cocos2d::Touch*, cocos2d::Event*);
 	void onTouchEnd(cocos2d::Touch*, cocos2d::Event*);
 	void logic(float dt);
+
+	void onLogin(cocos2d::EventCustom* evt);
+	void onAddRole(cocos2d::EventCustom* evt);
 };
 
 #endif // __MAP_SCENE_H__

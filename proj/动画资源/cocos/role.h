@@ -15,6 +15,7 @@ public:
 	void run();	
 private:
 	cocos2d::Sprite* _cc;
+	cocos2d::Label* _titletxt;
 	cocos2d::Animation* createAnimation(const char *fmt, int count, float fps);
 	State state;
 	RoleModel _model;
