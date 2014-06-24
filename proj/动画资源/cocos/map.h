@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "role.h"
 #include "cocostudio/CocoStudio.h"
+#include "animation3d.h"
 
 class GameMap : public cocos2d::Layer
 {
