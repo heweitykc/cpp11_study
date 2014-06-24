@@ -17,10 +17,12 @@ struct vertex_index
 class Animation3D : public Node, public BlendProtocol
 {
 public:
-	static Animation3D* create(const std::string &modelPath, const std::string &texturePath);	
+	static Animation3D* create(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath);
 
 	bool Animation3D::loadFromObj(const std::string& path);
 
+	virtual void setBlendFunc(const BlendFunc &blendFunc) override;
+	virtual const BlendFunc &getBlendFunc() const override;
 private:
 	Mesh              *_mesh;
 	MeshCommand        _meshCommand;

@@ -71,6 +71,10 @@ bool GameMap::init()
 	//auto action_back = action->reverse();
 	auto seq = Sequence::create(action, NULL);
 	//_tdRole->runAction(RepeatForever::create(seq));
+
+
+	_ani3dRole = Animation3D::create("Sprite3DTest/103_0.lmesh","Sprite3DTest/ahri_base_tx_cm.png","Sprite3DTest/103_0.lanim");
+
 	return true;
 }
 

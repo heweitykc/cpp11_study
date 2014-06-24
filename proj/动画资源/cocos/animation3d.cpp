@@ -1,6 +1,6 @@
 #include "animation3d.h"
 
-Animation3D* Animation3D::create(const std::string &modelPath, const std::string &texturePath)
+Animation3D* Animation3D::create(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath)
 {
 	auto sprite = new Animation3D();
 	sprite->loadFromObj(modelPath);
@@ -9,8 +9,11 @@ Animation3D* Animation3D::create(const std::string &modelPath, const std::string
 
 bool Animation3D::loadFromObj(const std::string& path)
 {
-	std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
-	std::istringstream ifs(FileUtils::getInstance()->getStringFromFile(fullPath));
+	std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);	
+	cocos2d::Data meshdata = FileUtils::getInstance()->getDataFromFile(fullPath);
+	const unsigned char *rawdata = meshdata.getBytes();
+
+
 
 	std::vector<float> v;
 	std::vector<float> vn;
