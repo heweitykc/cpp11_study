@@ -27,6 +27,7 @@ public:
 private:
 	cocostudio::Armature *hero;
 	Role* _role;
+	cocos2d::Sprite3D* _tdRole;
 	cocos2d::Vector<Node*> _rlist;
 	cocos2d::Sprite* _bg;
 	cocos2d::Sprite* _road;

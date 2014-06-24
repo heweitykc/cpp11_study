@@ -55,13 +55,22 @@ bool GameMap::init()
 	_rlist.pushBack(hero);
 
 	NetLayer::getInstance()->connect();
-	auto loginListener = EventListenerCustom::create(NET_LOGIN,      CC_CALLBACK_1(GameMap::onLogin,     this));
+	auto loginListener = EventListenerCustom::create(NET_LOGIN, CC_CALLBACK_1(GameMap::onLogin, this));
 	auto addroleListener = EventListenerCustom::create(NET_ADDROLE, CC_CALLBACK_1(GameMap::onAddRole, this));
 	NetLayer::getInstance()->dispatcher.addEventListenerWithFixedPriority(loginListener, 1);
 	NetLayer::getInstance()->dispatcher.addEventListenerWithFixedPriority(addroleListener, 1);
 
 	_role = nullptr;
-
+	
+	_tdRole = Sprite3D::create("Sprite3DTest/boss1.obj");
+	_tdRole->setScale(13.f);
+	_tdRole->setTexture("Sprite3DTest/boss.png");
+	_road->addChild(_tdRole);
+	_tdRole->setPosition(Vec2(300, 200));
+	auto action = RotateBy::create(1, 360);
+	//auto action_back = action->reverse();
+	auto seq = Sequence::create(action, NULL);
+	//_tdRole->runAction(RepeatForever::create(seq));
 	return true;
 }
 
