@@ -1,4 +1,4 @@
-[websocketserver]  游戏服务器demo. (poco网络库)
+[websocketserver]  游戏服务器demo, poco网络库
 
 
 
