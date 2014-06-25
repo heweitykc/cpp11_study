@@ -62,7 +62,7 @@ bool GameMap::init()
 
 	_role = nullptr;
 	
-	_tdRole = Sprite3D::create("Sprite3DTest/boss1.obj");
+	_tdRole = Sprite3D::create("Sprite3DTest/boss.obj");
 	_tdRole->setScale(13.f);
 	_tdRole->setTexture("Sprite3DTest/boss.png");
 	_road->addChild(_tdRole);

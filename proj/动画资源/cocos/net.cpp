@@ -1,5 +1,6 @@
 #include "net.h"
 #include "events.h"
+#include "binarytool.h"
 
 static NetLayer* instance = nullptr;
 
@@ -68,8 +69,8 @@ void NetLayer::clientMove(int x, int y)
 	pack.cmd = pkgUtil::NetProtocol::mvrole;
 	pack.len = 8;
 	pack.raw = new unsigned char[8];
-	pkgUtil::fillInt(pack.raw, 0, x);
-	pkgUtil::fillInt(pack.raw, 4, y);
+	BinaryTool::fillInt(pack.raw, 0, x);
+	BinaryTool::fillInt(pack.raw, 4, y);
 	send(pack);
 }
 
@@ -85,15 +86,15 @@ void NetLayer::onMessage(cocos2d::network::WebSocket* ws, const cocos2d::network
 	pkgUtil::unpkg((unsigned char*)data.bytes,&pack);
 
 	if (pack.cmd == pkgUtil::NetProtocol::login){
-		_uid = pkgUtil::getInt(pack.raw, 0);
+		_uid = BinaryTool::getInt(pack.raw, 0);
 		log("login uid=%d", _uid);
 
 		dispatcher.dispatchCustomEvent(NET_LOGIN);
 	} else if (pack.cmd == pkgUtil::NetProtocol::addrole){
 		Add_Role addrole;
-		addrole.uid = pkgUtil::getInt(pack.raw, 0);
-		addrole.x = pkgUtil::getInt(pack.raw, 4);
-		addrole.y = pkgUtil::getInt(pack.raw, 8);
+		addrole.uid = BinaryTool::getInt(pack.raw, 0);
+		addrole.x = BinaryTool::getInt(pack.raw, 4);
+		addrole.y = BinaryTool::getInt(pack.raw, 8);
 		addrole.isHero = (_uid == addrole.uid);
 		log("addrole=%d,x=%d,y=%d", addrole.uid, addrole.x, addrole.y);
 

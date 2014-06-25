@@ -39,8 +39,6 @@ public:
 	static void printRaw(unsigned char* data, int len);
 	static void pkg(netpack *pack, unsigned char* out);						//·â°ü
 	static void unpkg(const unsigned char* in, netpack *pack);			//½â°ü
-	static void fillInt(unsigned char* in, int pos, unsigned int intVar);
-	static unsigned int getInt(const unsigned char* in, int pos);
 	pkgUtil();
 	void append(const char* str, int len);
 	void getNext(netpack* pack);

@@ -5,18 +5,29 @@
 
 USING_NS_CC;
 
-struct vertex_index
+struct MeshHead
 {
-	int v_idx, vt_idx, vn_idx;
-	vertex_index() {};
-	vertex_index(int idx) : v_idx(idx), vt_idx(idx), vn_idx(idx) {};
-	vertex_index(int vidx, int vtidx, int vnidx) : v_idx(vidx), vt_idx(vtidx), vn_idx(vnidx) {};
+	char name[1024];
+	unsigned int vertexStart;
+	unsigned int vertexCount;
+	unsigned int indexStart;
+	unsigned int indexCount;
+};
 
+struct Vertex{
+	float x , y , z;
+	float nx , ny , nz;
+	float u, v;
+	int bones[4];
+	int weights[4];
 };
 
 class Animation3D : public Node, public BlendProtocol
 {
 public:
+	static void readVertex(const unsigned char *rawdata, int& pos, Vertex *vertex);
+	static void readMesh(const unsigned char *rawdata, int& pos, MeshHead *meshhead);
+
 	static Animation3D* create(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath);
 
 	bool Animation3D::loadFromObj(const std::string& path);
@@ -28,6 +39,9 @@ private:
 	MeshCommand        _meshCommand;
 	Texture2D*        _texture;
 	BlendFunc		  _blend;
+	std::vector<MeshHead*> _meshHeads;
+	std::vector<Vertex> _vertices;		//顶点数据
+	std::vector<unsigned int> _indices;		//索引数据
 };
 
 #endif
