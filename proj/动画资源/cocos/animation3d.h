@@ -25,23 +25,27 @@ struct Vertex{
 class Animation3D : public Node, public BlendProtocol
 {
 public:
-	static void readVertex(const unsigned char *rawdata, int& pos, Vertex *vertex);
 	static void readMesh(const unsigned char *rawdata, int& pos, MeshHead *meshhead);
 
 	static Animation3D* create(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath);
 
-	bool Animation3D::loadFromObj(const std::string& path);
+	~Animation3D();
+
+	bool Animation3D::loadFromObj(const std::string& path);	
+	void setTexture(const std::string& texFile);
 
 	virtual void setBlendFunc(const BlendFunc &blendFunc) override;
 	virtual const BlendFunc &getBlendFunc() const override;
 private:
 	Mesh              *_mesh;
 	MeshCommand        _meshCommand;
-	Texture2D*        _texture;
 	BlendFunc		  _blend;
-	std::vector<MeshHead*> _meshHeads;
-	std::vector<Vertex*> _vertices;			//顶点数据
-	std::vector<unsigned short> _indices;		//索引数据
+
+	Texture2D*				_texture;
+	std::vector<MeshHead*>	_meshHeads;
+
+	std::vector<Vertex*>	_vertices;			//顶点数据
+	std::vector<unsigned short> _indices;		//索引数据	
 };
 
 #endif

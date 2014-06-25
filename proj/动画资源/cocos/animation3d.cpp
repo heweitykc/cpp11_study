@@ -5,7 +5,14 @@ Animation3D* Animation3D::create(const std::string &modelPath, const std::string
 {
 	auto animation = new Animation3D();
 	animation->loadFromObj(modelPath);
+	animation->setTexture(texturePath);
+	animation->autorelease();
 	return animation;
+}
+
+void Animation3D::setTexture(const std::string& texFile)
+{
+	_texture = Director::getInstance()->getTextureCache()->addImage(texFile);
 }
 
 bool Animation3D::loadFromObj(const std::string& path)
@@ -122,17 +129,32 @@ void Animation3D::readMesh(const unsigned char *rawdata, int& pos, MeshHead *mes
 	pos += 4;
 }
 
-void readVertex(const unsigned char *rawdata, int& pos, Vertex *vertex)
-{
-
-}
-
 void Animation3D::setBlendFunc(const BlendFunc &blendFunc)
 {
 	if (_blend.src != blendFunc.src || _blend.dst != blendFunc.dst)
 	{
 		_blend = blendFunc;
 	}
+}
+
+Animation3D::~Animation3D()
+{
+	log("~Animation3D");
+	for (std::vector<MeshHead*>::iterator it = _meshHeads.begin(); it != _meshHeads.end(); it++){
+		if (NULL != *it){
+			delete *it;
+			*it = NULL;
+		}
+	}
+	_meshHeads.clear();
+
+	for (std::vector<Vertex*>::iterator it = _vertices.begin(); it != _vertices.end(); it++){
+		if (NULL != *it){
+			delete *it;
+			*it = NULL;
+		}
+	}
+	_vertices.clear();
 }
 
 const BlendFunc& Animation3D::getBlendFunc() const
