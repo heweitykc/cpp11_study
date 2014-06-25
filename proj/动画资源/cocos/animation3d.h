@@ -19,7 +19,7 @@ struct Vertex{
 	float nx , ny , nz;
 	float u, v;
 	int bones[4];
-	int weights[4];
+	float weights[4];
 };
 
 class Animation3D : public Node, public BlendProtocol
@@ -40,8 +40,8 @@ private:
 	Texture2D*        _texture;
 	BlendFunc		  _blend;
 	std::vector<MeshHead*> _meshHeads;
-	std::vector<Vertex> _vertices;		//顶点数据
-	std::vector<unsigned int> _indices;		//索引数据
+	std::vector<Vertex*> _vertices;			//顶点数据
+	std::vector<unsigned short> _indices;		//索引数据
 };
 
 #endif

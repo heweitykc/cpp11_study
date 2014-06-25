@@ -3,9 +3,9 @@
 
 Animation3D* Animation3D::create(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath)
 {
-	auto sprite = new Animation3D();
-	sprite->loadFromObj(modelPath);
-	return sprite;
+	auto animation = new Animation3D();
+	animation->loadFromObj(modelPath);
+	return animation;
 }
 
 bool Animation3D::loadFromObj(const std::string& path)
@@ -34,8 +34,6 @@ bool Animation3D::loadFromObj(const std::string& path)
 	unsigned int meshNum = *((int*)(rawdata + pos));
 	pos += 4;
 
-	log("magic=%u, ver=%u, meshnum=%u", magic,version,meshNum);
-
 	unsigned int i = 0;
 	while (i < meshNum){
 		MeshHead *meshhead = new MeshHead();
@@ -47,9 +45,57 @@ bool Animation3D::loadFromObj(const std::string& path)
 	unsigned int vertNum = *((int*)(rawdata + pos));
 	pos += 4;
 
+	log("magic=%u, ver=%u, meshnum=%u, vertnum=%u", magic, version, meshNum, vertNum);
+
 	i = 0;
 	while (i < vertNum){
+		Vertex *v = new Vertex();
+		v->x = *((float*)(rawdata + pos));
+		pos += 4;
+		
+		v->y = *((float*)(rawdata + pos));
+		pos += 4;
 
+		v->z = *((float*)(rawdata + pos));
+		pos += 4;
+
+		v->nx = *((float*)(rawdata + pos));
+		pos += 4;
+
+		v->ny = *((float*)(rawdata + pos));
+		pos += 4;
+
+		v->nz = *((float*)(rawdata + pos));
+		pos += 4;
+
+		v->u = *((float*)(rawdata + pos));
+		pos += 4;
+
+		v->v = *((float*)(rawdata + pos));
+		pos += 4;
+
+		for (int j = 0; j < 4; j++){
+			v->bones[j] = *(rawdata + pos);
+			pos += 1; //char
+		}
+
+		for (int j = 0; j < 4; j++){
+			v->weights[j] = *((float*)(rawdata + pos));
+			pos += 4;
+		}
+
+		_vertices.push_back(v);
+		i++;
+	}
+
+	unsigned int indicesNum = *((unsigned int*)(rawdata + pos));
+	pos += 4;
+
+	i = 0;
+	while (i < indicesNum){
+		unsigned short indice = *((unsigned short*)(rawdata + pos));
+		_indices.push_back(indice);
+		pos += 2;
 		i++;
 	}
 
