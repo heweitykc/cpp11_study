@@ -1,10 +1,7 @@
 #ifndef __ROAD_SERACH_H__
 #define __ROAD_SERACH_H__
 
-#include <string>
 #include "cocos2d.h"
-#include "network\WebSocket.h"
-#include "pkgutil.h"
 
 USING_NS_CC;
 
@@ -15,9 +12,11 @@ public:
 	static const int HEIGHT = 18;
 	enum TYPE {OPEN=0,CLOSE=1};
 	void init();
-	void update(int x,int y);
+	void update(int x,int y,int pid);
+
 private:
 	unsigned char _roads[WIDTH][HEIGHT];
+	unsigned char _proads[WIDTH][HEIGHT];
 };
 
 #endif
