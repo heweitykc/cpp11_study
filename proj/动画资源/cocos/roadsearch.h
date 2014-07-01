@@ -11,8 +11,8 @@ USING_NS_CC;
 class RoadSearch
 {
 public:
-	static const int WIDTH =  40;
-	static const int HEIGHT = 40;
+	static const int WIDTH =  18;
+	static const int HEIGHT = 18;
 	enum TYPE {OPEN=0,CLOSE=1};
 	void init();
 	void update(int x,int y);
