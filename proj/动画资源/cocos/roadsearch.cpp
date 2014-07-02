@@ -107,12 +107,9 @@ void RoadSearch::buildPath()
 	_path.clear();
 	Node* node = _endNode;
 	_path.push_front(node);
-	//cout<<"final path:"<<endl;
-	//cout<<node->x<<"_"<<node->y<<endl;
 	while (node != _startNode){
 		node = node->parent;
 		_path.push_front(node);
-		//cout<<node->x<<"_"<<node->y<<endl;
 	}
 }
 
@@ -134,4 +131,13 @@ bool RoadSearch::isClosed(Node* node)
 		itr++;
 	}
 	return false;
+}
+
+void RoadSearch::printPath()
+{
+	list<Node*>::iterator itr = _path.begin();
+	while (itr != _path.end()){
+		cout<<(*itr)->x<<"_"<<(*itr)->y<<endl;
+		itr++;
+	}
 }

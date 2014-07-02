@@ -23,6 +23,7 @@ int main()
 	double seconds = GetTickCount();
 	searcher.findPath(0,0,15,16);
 	double seconds2 = GetTickCount();
-	std::cout<<"elapse:"<<(seconds2-seconds);
+	std::cout<<"elapse:"<<(seconds2-seconds)<<endl;
+	searcher.printPath();
 	return 0;
 }

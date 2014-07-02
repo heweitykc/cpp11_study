@@ -73,6 +73,7 @@ public:
 	void update(int x,int y,int pid);	//pid=(0表示可行, 1-10表示战斗单位, 11表示障碍)
 	bool findPath(int startx, int starty, int endx, int endy);
 	bool search();
+	void printPath();
 private:
 	Node  _roads[WIDTH][HEIGHT];
 	Node* _startNode;
@@ -84,8 +85,8 @@ private:
 	float _straightCost = 1.0f;
 	float _diagCost = 1.4142135623730951f;
 	
-	float euclidian(Node* node);
-	float diagonal(Node* node);	
+	inline float euclidian(Node* node);
+	inline float diagonal(Node* node);	
 
 	bool isOpen(Node* node);
 	bool isClosed(Node* node);
