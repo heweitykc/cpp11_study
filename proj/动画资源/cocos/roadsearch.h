@@ -2,7 +2,7 @@
 #define __ROAD_SERACH_H__
 
 #include "road.h"
-
+#include <vector>
 
 /*
 ½Úµã(node)£º
@@ -48,8 +48,8 @@
 
 */
 
-struct Node{
-public:
+struct Node
+{
 	int x,y;
 	float f,g,h;
 	int pid;	
@@ -67,6 +67,15 @@ public:
 private:
 	Node  _roads[Road::WIDTH][Road::HEIGHT];
 	Node* _startNode;
+	Node* _endNode;
+	cocos2d::Array _open;
+	cocos2d::Array _closed;
+
+	float _straightCost = 1.0f;
+	float _diagCost = 1.4142135623730951f;
+	float euclidian(Node* node);
+	bool isOpen(Node* node);
+	bool isClosed(Node* node);
 };
 
 #endif
