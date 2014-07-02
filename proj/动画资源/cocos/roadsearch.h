@@ -59,9 +59,8 @@ struct Node
 	Node* parent;
 };
 
-inline
-bool greater_f( const Node* a, const Node* b )
-{ return a->f < b->f; }
+inline bool greater_f( const Node* a, const Node* b ) { return a->f < b->f; }
+
 
 class RoadSearch
 {
