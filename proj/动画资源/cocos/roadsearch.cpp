@@ -9,6 +9,7 @@ void RoadSearch::init()
 			_roads[i][j].x = i;
 			_roads[i][j].y = j;
 			_roads[i][j].pid = 0;
+			_roads[i][j].costMultiplier = 1.0f;
 		}
 }
 
@@ -36,7 +37,7 @@ bool RoadSearch::search()
 		int endX = fmin(WIDTH-1, node->x+1);
 		int startY = fmax(0, node->y-1);
 		int endY = fmin(HEIGHT - 1, node->y+1);
-		cout<<startX<<" "<<startY<<" "<<endX<<" "<<endY<<endl;
+		//cout<<startX<<" "<<startY<<" "<<endX<<" "<<endY<<endl;
 		for (int i = startX; i <= endX; i++){
 			for (int j = startY; j <= endY; j++){
 				Node* test = &(_roads[i][j]);
@@ -65,14 +66,16 @@ bool RoadSearch::search()
 			}
 		}
 		_closed.push_back(node);
+		/*
 		list<Node*>::iterator itr = _open.begin();
 		while(itr!=_open.end()){
            cout<<(*itr)->x<<"_"<<(*itr)->y<<" ";
 			itr++;
         }
-		cout<<endl;
+		cout<<endl;*/
 
 		if (_open.size() == 0){
+			cout<<"no road"<<endl;
 			return false;
 		}
 		_open.sort(greater_f);
