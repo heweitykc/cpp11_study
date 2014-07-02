@@ -85,7 +85,8 @@ private:
 	float _diagCost = 1.4142135623730951f;
 	
 	float euclidian(Node* node);
-	float diagonal(Node* node);
+	float diagonal(Node* node);	
+
 	bool isOpen(Node* node);
 	bool isClosed(Node* node);
 	void buildPath();

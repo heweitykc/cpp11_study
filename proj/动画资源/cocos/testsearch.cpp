@@ -1,4 +1,7 @@
 #include "roadsearch.h"
+#include <time.h>
+#include <iostream>
+#include <windows.h>
 
 int main()
 {
@@ -16,6 +19,10 @@ int main()
 	searcher.update(14,13, 1);
 	searcher.update(14,12, 1);
 	searcher.update(14,11, 1);
+	
+	double seconds = GetTickCount();
 	searcher.findPath(0,0,15,16);
+	double seconds2 = GetTickCount();
+	std::cout<<"elapse:"<<(seconds2-seconds);
 	return 0;
 }
