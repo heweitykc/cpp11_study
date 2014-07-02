@@ -1,8 +1,10 @@
 #ifndef __ROAD_SERACH_H__
 #define __ROAD_SERACH_H__
 
-#include "road.h"
-#include <vector>
+#include <list>
+
+
+using namespace std;
 
 /*
 节点(node)：
@@ -57,25 +59,36 @@ struct Node
 	Node* parent;
 };
 
+inline
+bool greater_f( const Node* a, const Node* b )
+{ return a->f < b->f; }
+
 class RoadSearch
 {
 public:	
+	static const int WIDTH =  18;
+	static const int HEIGHT = 18;
+
 	void init();
 	void update(int x,int y,int pid);	//pid=(0表示可行, 1-10表示战斗单位, 11表示障碍)
-	bool findPath(int startx, int starty);
+	bool findPath(int startx, int starty, int endx, int endy);
 	bool search();
 private:
-	Node  _roads[Road::WIDTH][Road::HEIGHT];
+	Node  _roads[WIDTH][HEIGHT];
 	Node* _startNode;
 	Node* _endNode;
-	cocos2d::Array _open;
-	cocos2d::Array _closed;
+	list<Node*> _open;
+	list<Node*> _closed;
+	list<Node*> _path;
 
 	float _straightCost = 1.0f;
 	float _diagCost = 1.4142135623730951f;
+	
 	float euclidian(Node* node);
+	float diagonal(Node* node);
 	bool isOpen(Node* node);
 	bool isClosed(Node* node);
+	void buildPath();
 };
 
 #endif
