@@ -22,7 +22,7 @@ bool RoadSearch::findPath(int startx, int starty, int endx, int endy)
 {
 	_startNode = &(_roads[startx][starty]);
 	_startNode->g = 0;
-	_startNode->h = euclidian(_startNode);
+	_startNode->h = diagonal(_startNode);
 	_startNode->f = _startNode->g + _startNode->h;
 	_endNode = &(_roads[endx][endy]);
 	return search();
