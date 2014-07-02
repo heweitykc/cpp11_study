@@ -31,7 +31,7 @@ bool RoadSearch::findPath(int startx, int starty, int endx, int endy)
 bool RoadSearch::search()
 {
 	Node* node = _startNode;
-
+	int count = 0;
 	while (node != _endNode){
 		int startX = fmax(0, node->x-1);
 		int endX = fmin(WIDTH-1, node->x+1);
@@ -63,8 +63,10 @@ bool RoadSearch::search()
 					test->parent = node;
 					_open.push_back(test);
 				}
+				count++;
 			}
 		}
+		
 		_closed.push_back(node);
 		/*
 		list<Node*>::iterator itr = _open.begin();
@@ -82,6 +84,7 @@ bool RoadSearch::search()
 		node = _open.front();
 		_open.pop_front();
 	}
+	cout<<"count="<<count<<endl;
 	buildPath();
 	return true;
 }

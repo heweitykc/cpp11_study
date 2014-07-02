@@ -20,10 +20,19 @@ int main()
 	searcher.update(14,12, 1);
 	searcher.update(14,11, 1);
 	
-	double seconds = GetTickCount();
+	LARGE_INTEGER m_liPerfFreq={0};
+	QueryPerformanceFrequency(&m_liPerfFreq); 
+	LARGE_INTEGER m_liPerfStart={0};
+	QueryPerformanceCounter(&m_liPerfStart);
+
+	//Sleep(106);
 	searcher.findPath(0,0,15,16);
-	double seconds2 = GetTickCount();
-	std::cout<<"elapse:"<<(seconds2-seconds)<<endl;
+
+	LARGE_INTEGER liPerfNow={0};
+	QueryPerformanceCounter(&liPerfNow);
+	int time=( ((liPerfNow.QuadPart - m_liPerfStart.QuadPart) * 1000)/m_liPerfFreq.QuadPart);
+
+	std::cout<<"elapse:"<<time<<endl;
 	searcher.printPath();
 	return 0;
 }
