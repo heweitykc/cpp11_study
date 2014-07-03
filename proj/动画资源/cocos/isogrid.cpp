@@ -108,14 +108,15 @@ void IsoGrid::redraw()
 	}
 	*/
 	_drawNode->clear();
-
+	float startx = 100;
+	float starty = 100;
 	for (int i = 0; i < 18; i++){
 		for (int j = 0; j < 18; j++){
 			log("%f  %f", _xangle, _yangle);
-			drawPoint(i*20, 0, j*20);
-			drawPoint(i * 20, 0, (j+1) * 20);
-			drawPoint((i + 1) * 20, 0, j * 20);
-			drawPoint((i + 1) * 20, 0, (j + 1) * 20);
+			drawPoint(startx + i*_cellSize, 0, starty+j * _cellSize);
+			drawPoint(startx + i * _cellSize, 0, starty + (j + 1) * _cellSize);
+			drawPoint(startx + (i + 1) * _cellSize, 0, starty + j * _cellSize);
+			drawPoint(startx + (i + 1) * _cellSize, 0, starty + (j + 1) * _cellSize);
 			log("draw end");
 		}
 	}
