@@ -59,20 +59,36 @@ bool IsoGrid::init()
 	_items[5] = GridItem::create();
 	addChild(_items[5]);
 
+	auto listener1 = EventListenerTouchOneByOne::create();
+	listener1->setSwallowTouches(true);
+	listener1->onTouchBegan = CC_CALLBACK_2(IsoGrid::onTouchBegan, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+
 	return true;
+}
+
+bool IsoGrid::onTouchBegan(Touch* touch, Event* event)
+{
+	Vec2 v2 = touch->getLocation();
+	v2 = this->convertToNodeSpace(v2);
+	char str0[256] = { 0 };
+	Vec3 isop;
+	screen2iso(isop, Vec3(v2.x, v2.y, 0));
+	sprintf(str0, "x=%f,z=%f", round(isop.x), round(isop.z));
+	_label->setString(str0);
+
+	return false;
 }
 
 void IsoGrid::moveItem(int roleIndex, int x, int y, int z)
 {
-	float startx = 100;
-	float starty = 100;
-	x = startx + x*_cellSize;
-	z = starty + z*_cellSize;
+	_items[roleIndex]->gridPos.x = x;
+	_items[roleIndex]->gridPos.y = y;
+	_items[roleIndex]->gridPos.z = z;
 
-	float sX = x * _cos_y_angle - z * _sin_y_angle;
-	float z1 = z * _cos_y_angle + x * _sin_y_angle;
-	float sY = y * _cos_x_angle - z1 * _sin_x_angle;
-	_items[roleIndex]->setPosition(sX, sY);
+	Vec3 v2;
+	iso2screen(Vec3(x, y, z), v2);
+	_items[roleIndex]->setPosition(Vec2(v2.x, v2.y));
 }
 
 void IsoGrid::setXAngle(float xangle)
@@ -97,15 +113,9 @@ void IsoGrid::setCellSize(float size)
 
 void IsoGrid::drawPoint(float x, float y, float z)
 {
-	float startx = 100;
-	float starty = 100;
-
-	float sX = x * _cos_y_angle - z * _sin_y_angle;
-	float z1 = z * _cos_y_angle + x * _sin_y_angle;
-	float sY = y * _cos_x_angle - z1 * _sin_x_angle;
-	//float z2 = z1 * cos(_xangle) + y * sin(_xangle);
-	//log("x=%2f,y=%2f", sX, sY);
-	_drawNode->drawDot(Vec2(sX, sY), 1, Color4F(1, 1, 1, 1));
+	Vec3 v2;
+	iso2screen(Vec3(x, y, z), v2);
+	_drawNode->drawDot(Vec2(v2.x,v2.y), 1, Color4F(1, 1, 1, 1));
 }
 
 void IsoGrid::sliderEvent1(Ref *pSender, Slider::EventType type)
@@ -149,15 +159,11 @@ void IsoGrid::redraw(float dt)
 	_cos_x_angle = cos(_xangle);
 	_sin_y_angle = sin(_yangle);
 	_cos_y_angle = cos(_yangle);
+
 	_drawNode->clear();
-	float startx = 100;
-	float starty = 100;
 	for (int i = 0; i < 18; i++){
 		for (int j = 0; j < 18; j++){
-			drawPoint(startx + i*_cellSize, 0, starty+j * _cellSize);
-			drawPoint(startx + i * _cellSize, 0, starty + (j + 1) * _cellSize);
-			drawPoint(startx + (i + 1) * _cellSize, 0, starty + j * _cellSize);
-			drawPoint(startx + (i + 1) * _cellSize, 0, starty + (j + 1) * _cellSize);
+			drawPoint(i, 0, j);
 		}
 	}
 	char str0[256] = {0};
@@ -165,9 +171,33 @@ void IsoGrid::redraw(float dt)
 	_label->setString(str0);
 
 	moveItem(0, 0, 0, 0);
-	moveItem(1, 1, 0, 2);
-	moveItem(2, 2, 0, 2);
-	moveItem(3, 3, 0, 2);
-	moveItem(4, 4, 0, 2);
-	moveItem(5, 5, 0, 2);
+	moveItem(1, 1, 0, 12);
+	moveItem(2, 2, 0, 12);
+	moveItem(3, 3, 0, 12);
+	moveItem(4, 4, 0, 12);
+	moveItem(5, 5, 0, 12);
+}
+
+void IsoGrid::iso2screen(Vec3& isoP, Vec3& screenP)
+{
+	isoP.y = 0;
+	screenP.x = isoP.x * _cos_y_angle - isoP.z * _sin_y_angle;
+
+	float z1 = isoP.z * _cos_y_angle + isoP.x * _sin_y_angle;
+	screenP.y = isoP.y * _cos_x_angle - z1 * _sin_x_angle;
+
+	screenP.x *= _cellSize;
+	screenP.y *= _cellSize;
+}
+
+void IsoGrid::screen2iso(Vec3& isoP, Vec3& screenP)
+{	
+	screenP.x /= _cellSize;
+	screenP.y /= _cellSize;
+
+	isoP.y = 0;
+	float z1 = -1 * screenP.y / _sin_x_angle;
+
+	isoP.x = (z1 * _sin_y_angle + screenP.x * _cos_y_angle) / (_cos_y_angle* _cos_y_angle + _sin_y_angle * _sin_y_angle);
+	isoP.z = (z1 - isoP.x * _sin_y_angle) / _cos_y_angle;
 }

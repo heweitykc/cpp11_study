@@ -7,8 +7,8 @@ class GridItem : public cocos2d::Layer
 {
 public:
 	virtual bool init();
-	CREATE_FUNC(GridItem);
-	int gridx, gridy, gridz;
+	CREATE_FUNC(GridItem);	
+	cocos2d::Vec3 gridPos;
 
 private:
 	cocos2d::DrawNode* _drawNode;

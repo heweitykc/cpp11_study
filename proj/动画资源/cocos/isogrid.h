@@ -41,6 +41,10 @@ private:
 	cocos2d::ui::Slider* _slider3;
 	cocos2d::LabelTTF* _label;
 	GridItem* _items[6];
+
+	bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+	void iso2screen(cocos2d::Vec3& isoP, cocos2d::Vec3& screenP);
+	void screen2iso(cocos2d::Vec3& isoP, cocos2d::Vec3& screenP);
 };
 
 #endif
