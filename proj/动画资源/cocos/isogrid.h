@@ -23,6 +23,7 @@ public:
 	void sliderEvent2(Ref* pSender, cocos2d::ui::Slider::EventType type);
 	void sliderEvent3(Ref* pSender, cocos2d::ui::Slider::EventType type);
 	void moveItem(int roleIndex, int x, int y, int z);
+
 private:
 	float _xangle;
 	float _yangle;

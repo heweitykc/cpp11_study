@@ -77,6 +77,8 @@ bool IsoGrid::onTouchBegan(Touch* touch, Event* event)
 	sprintf(str0, "x=%f,z=%f", round(isop.x), round(isop.z));
 	_label->setString(str0);
 
+	moveItem(0, isop.x, v2.y, isop.z);
+
 	return false;
 }
 
@@ -173,9 +175,9 @@ void IsoGrid::redraw(float dt)
 	moveItem(0, 0, 0, 0);
 	moveItem(1, 1, 0, 12);
 	moveItem(2, 2, 0, 12);
-	moveItem(3, 3, 0, 12);
+	moveItem(3, 3, 0, 15);
 	moveItem(4, 4, 0, 12);
-	moveItem(5, 5, 0, 12);
+	moveItem(5, 16, 0, 17);
 }
 
 void IsoGrid::iso2screen(Vec3& isoP, Vec3& screenP)
@@ -200,4 +202,7 @@ void IsoGrid::screen2iso(Vec3& isoP, Vec3& screenP)
 
 	isoP.x = (z1 * _sin_y_angle + screenP.x * _cos_y_angle) / (_cos_y_angle* _cos_y_angle + _sin_y_angle * _sin_y_angle);
 	isoP.z = (z1 - isoP.x * _sin_y_angle) / _cos_y_angle;
+
+	isoP.x = round(isoP.x);
+	isoP.z = round(isoP.z);
 }
