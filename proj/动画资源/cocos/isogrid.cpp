@@ -91,6 +91,7 @@ void IsoGrid::moveItem(int roleIndex, int x, int y, int z)
 	Vec3 v2;
 	iso2screen(Vec3(x, y, z), v2);
 	_items[roleIndex]->setPosition(Vec2(v2.x, v2.y));
+	_items[roleIndex]->update(_cellSize/2);
 }
 
 void IsoGrid::setXAngle(float xangle)

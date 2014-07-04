@@ -9,7 +9,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(GridItem);	
 	cocos2d::Vec3 gridPos;
-
+	void update(int size);
 private:
 	cocos2d::DrawNode* _drawNode;
 };
