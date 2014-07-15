@@ -17,3 +17,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <list>
+#include <vector>
+#include <sstream>
