@@ -58,8 +58,18 @@ void insertVertex(const char* rawstr, list<float>* list)
 	vector<string> splitlist;
 	split(wstr, splitlist);
 	vector<string>::iterator itr = splitlist.begin();
+	list->push_back(1.0f);
+	list->push_back(0.0f);
+	list->push_back(0.0f);
+	list->push_back(0.0f);
+
+	list->push_back(stringToNum<float>(*itr));
+	list->push_back(0.0f);
+	list->push_back(0.0f);
+	list->push_back(0.0f);
+
 	itr++;
-	while (itr != splitlist.end()){		
+	while (itr != splitlist.end()){
 		list->push_back(stringToNum<float>(*itr));
 		itr++;
 	}
@@ -147,6 +157,14 @@ int main(int argc, char* argv[])
 		ss << ("\"version\": \"1.2\",\n");
 		ss << ("\"attributes\": [\n");
 		ss << ("{\n");
+		ss << ("\"size\":   4, \n");
+		ss << ("\"type\": \"GL_FLOAT\", \n");
+		ss << ("\"attribute\": \"VERTEX_ATTRIB_BLEND_WEIGHT\"\n");
+		ss << ("}, {\n");
+		ss << ("\"size\":   4, \n");
+		ss << ("\"type\": \"GL_FLOAT\", \n");
+		ss << ("\"attribute\": \"VERTEX_ATTRIB_BLEND_INDEX\"\n");
+		ss << ("}, {\n");
 		ss << ("\"size\":   3, \n");
 		ss << ("\"type\": \"GL_FLOAT\", \n");
 		ss << ("\"attribute\": \"VERTEX_ATTRIB_POSITION\"\n");
@@ -198,14 +216,21 @@ int main(int argc, char* argv[])
 		ss << ("\"base\": [\n");
 		ss << ("{\n");
 		ss << ("\"filename\": \"");
-		ss << key;
-		ss << ("\"\n");
-		ss << ("\n");
-		ss << ("\n");
+		ss << key; ss << ("\"\n");
 		ss << ("}\n");
 		ss << ("]\n");
 		ss << ("}\n");
+		ss << ("],\n");
+
+		ss << ("\"skin\": [\n");
+			
+		ss << ("],\n");
+
+
+		ss << ("\"animation\": [\n");
+		ss << ("\"animation\": [\n");	
 		ss << ("]\n");
+
 		ss << ("}\n");
 
 		ofstream outfile(key+".c3t");
