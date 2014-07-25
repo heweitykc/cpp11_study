@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="generatefilelist.cpp" />
+    <ClCompile Include="main2.cpp" />
     <ClCompile Include="smd2c3t.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

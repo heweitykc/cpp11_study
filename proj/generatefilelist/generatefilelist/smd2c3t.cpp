@@ -109,6 +109,7 @@ void readVertices(std::ifstream& fs, const char* sign, int len)
 	}
 }
 
+
 int main(int argc, char* argv[])
 {
 	std::ifstream  fs;
