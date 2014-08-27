@@ -45,21 +45,37 @@ void pkgUtil::unpkg(const char* in, netpack *pack)
 
 pkgUtil::pkgUtil()
 {
-	std::memset(_buff, 0, BUFFSIZE);
-	_cursor = 0;
+	std::memset(_buff0, 0, BUFFSIZE);
+	_beginCursor = 0;
+	_endCursor = 0;
 }
 
 void pkgUtil::append(const char* str, int len)
-{
-	int i = 0;
-	while (i++ < len){
-		_buff[_cursor] = str[i];
-		_cursor++;
-	}
+{	
+	memcpy(_buff0 + _endCursor, str, len);
+	_endCursor += len;
 }
 
 void pkgUtil::getNext(netpack* pack)
-{
+{	
 	pack->cmd = -1;
+	if (_endCursor == _beginCursor) return;	//没有数据
 
+	unpkg(_buff0 + _beginCursor, pack);
+	_beginCursor += pack->len + HEAD_SIZE;
+	resetBuffer();
+}
+
+void pkgUtil::resetBuffer()
+{
+	int len = _endCursor - _beginCursor;
+	if (len == 0){			//没有数据了
+		_beginCursor = 0;
+		_endCursor = 0;
+		return;
+	}
+	memcpy(_buff1, _buff0 + _beginCursor, len);	//拷贝到辅助_buffer1
+	memcpy(_buff0, _buff1, len);
+	_beginCursor = 0;
+	_endCursor = len;
 }

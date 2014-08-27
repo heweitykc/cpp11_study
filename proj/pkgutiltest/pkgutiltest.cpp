@@ -10,30 +10,66 @@
 using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
-{
+{	
+	pkgUtil* util = new pkgUtil();
+
 	netpack in;
 	in.raw = "abc";
 	in.cmd = 100;
-	in.len = sizeof(in.raw)-1;
+	in.len = strlen(in.raw);
+
+	netpack in2;
+	in2.raw = "a";
+	in2.cmd = 104;
+	in2.len = strlen(in2.raw);
+
+	netpack in3;
+	in3.raw = "abcsfcdsf";
+	in3.cmd = 102;
+	in3.len = strlen(in3.raw);
+
 	char *out = new char[in.len + pkgUtil::HEAD_SIZE];
 	pkgUtil::pkg(&in, out);
-	pkgUtil::printRaw(out, in.len + pkgUtil::HEAD_SIZE);
+	util->append(out, in.len + pkgUtil::HEAD_SIZE);
+	delete[] out;
+
+	out = new char[in2.len + pkgUtil::HEAD_SIZE];
+	pkgUtil::pkg(&in2, out);
+	util->append(out, in2.len + pkgUtil::HEAD_SIZE);
+	delete[] out;
+
+	out = new char[in3.len + pkgUtil::HEAD_SIZE];
+	pkgUtil::pkg(&in3, out);
+	util->append(out, in3.len + pkgUtil::HEAD_SIZE);
+	delete[] out;
 	
-	netpack out2;
-	pkgUtil::unpkg(out, &out2);
-	pkgUtil::printRaw(out2.raw, out2.len);
-
-	pkgUtil util;
-	util.append(out, in.len + pkgUtil::HEAD_SIZE);
-
+	//½â°ü
 	netpack pack;
-	util.getNext(&pack);
+	util->getNext(&pack);
 	if (pack.cmd > 0)
-		printf("%d,%d,%s", pack.len, pack.cmd,pack.raw);
+		printf("%d,%d,%s,\n", pack.len, pack.cmd,pack.raw);
+	util->getNext(&pack);
+	if (pack.cmd > 0)
+		printf("%d,%d,%s,\n", pack.len, pack.cmd, pack.raw);
+	util->getNext(&pack);
+	if (pack.cmd > 0)
+		printf("%d,%d,%s,\n", pack.len, pack.cmd, pack.raw);
+	util->getNext(&pack);
+
+	if (pack.cmd > 0)
+		printf("%d,%d,%s,\n", pack.len, pack.cmd, pack.raw);
+	util->getNext(&pack);
+	if (pack.cmd > 0)
+		printf("%d,%d,%s,\n", pack.len, pack.cmd, pack.raw);
+	util->getNext(&pack);
+	if (pack.cmd > 0)
+		printf("%d,%d,%s,\n", pack.len, pack.cmd, pack.raw);
+	util->getNext(&pack);
+
 	int len = 0;
 	scanf_s("%d",len);
-
-	delete[] out;
+	
+	delete util;
 	return 0;
 }
 
