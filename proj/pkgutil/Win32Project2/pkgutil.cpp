@@ -30,24 +30,17 @@ void pkgUtil::pkg(netpack *pack, char* out)
 	out[4] = *(cp + 3);
 
 	int i = 0;
-	while (i < pack->len){
-		out[i + pkgUtil::HEAD_SIZE] = pack->raw[i];
-		i++;
-	}
+	memcpy(out + pkgUtil::HEAD_SIZE, pack->raw, pack->len);
 }
 
 void pkgUtil::unpkg(const char* in, netpack *pack)
 {
 	int len = (*(in + 3)) + ((*(in + 2)) << 8) + ((*(in + 1)) << 16) + ((*in) << 24);
-	int cmd = (*(in + 7)) + ((*(in + 6)) << 8) + ((*(in + 5)) << 16) + ((*(in+4)) << 24);
+	int cmd = (*(in + 7)) + ((*(in + 6)) << 8) + ((*(in + 5)) << 16) + ((*(in + 4)) << 24);
 	pack->raw = new char[len];
 	pack->len = len;
 	pack->cmd = cmd;
-	int i = 0;
-	while (i < len){
-		pack->raw[i] = in[i + pkgUtil::HEAD_SIZE];
-		i++;
-	}
+	memcpy(pack->raw, in + pkgUtil::HEAD_SIZE, len);
 }
 
 pkgUtil::pkgUtil()
