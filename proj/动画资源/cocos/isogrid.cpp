@@ -16,35 +16,34 @@ bool IsoGrid::init()
 	_cellSize = 10;
 
 	_slider1 = Slider::create();
+	_slider1->setRotation(90);
 	_slider1->loadBarTexture("ui/sliderTrack.png");
 	_slider1->loadSlidBallTextures("ui/sliderThumb.png", "ui/sliderThumb.png", "");
 	_slider1->loadProgressBarTexture("ui/sliderProgress.png");
-	_slider1->setPosition(Vec2(70, 300));
+	_slider1->setPosition(Vec2(10, 500));
 	addChild(_slider1);
 	_slider1->addEventListener(CC_CALLBACK_2(IsoGrid::sliderEvent1, this));
 	_slider1->setPercent(50);
 
 	_slider2 = Slider::create();
+	_slider2->setRotation(90);
 	_slider2->loadBarTexture("ui/sliderTrack.png");
 	_slider2->loadSlidBallTextures("ui/sliderThumb.png", "ui/sliderThumb.png", "");
 	_slider2->loadProgressBarTexture("ui/sliderProgress.png");
-	_slider2->setPosition(Vec2(70, 280));
+	_slider2->setPosition(Vec2(30, 500));
 	addChild(_slider2);
 	_slider2->addEventListener(CC_CALLBACK_2(IsoGrid::sliderEvent2, this));
 	_slider2->setPercent(50);
 
 	_slider3 = Slider::create();
+	_slider3->setRotation(90);
 	_slider3->loadBarTexture("ui/sliderTrack.png");
 	_slider3->loadSlidBallTextures("ui/sliderThumb.png", "ui/sliderThumb.png", "");
 	_slider3->loadProgressBarTexture("ui/sliderProgress.png");
-	_slider3->setPosition(Vec2(70, 260));
+	_slider3->setPosition(Vec2(50, 500));
 	addChild(_slider3);
 	_slider3->addEventListener(CC_CALLBACK_2(IsoGrid::sliderEvent3, this));
 	_slider3->setPercent(50);
-
-	_label = LabelTTF::create("Hello World", "Arial", 8);
-	_label->setPosition(100, 310);
-	addChild(_label);
 
 	_items[0] = GridItem::create();
 	addChild(_items[0]);
@@ -71,12 +70,15 @@ bool IsoGrid::onTouchBegan(Touch* touch, Event* event)
 {
 	Vec2 v2 = touch->getLocation();
 	v2 = this->convertToNodeSpace(v2);
-	char str0[256] = { 0 };
+
+	std::stringstream ss;
+	std::string str;
+	
+	ss << "x=" << v2.x << ", y=" << v2.y << std::endl;;
+	ss >> str;
+	log(str.c_str());
 	Vec3 isop;
 	screen2iso(isop, Vec3(v2.x, v2.y, 0));
-	sprintf(str0, "x=%f,z=%f", round(isop.x), round(isop.z));
-	_label->setString(str0);
-
 	moveItem(0, isop.x, v2.y, isop.z);
 
 	return false;
@@ -169,16 +171,20 @@ void IsoGrid::redraw(float dt)
 			drawPoint(i, 0, j);
 		}
 	}
+
+	/*
 	char str0[256] = {0};
 	sprintf(str0, "xangle=%2f,yangle=%2f", _xangle, _yangle);
 	_label->setString(str0);
-
+	*/
 	moveItem(0, 0, 0, 0);
 	moveItem(1, 1, 0, 12);
 	moveItem(2, 2, 0, 12);
 	moveItem(3, 3, 0, 15);
 	moveItem(4, 4, 0, 12);
 	moveItem(5, 16, 0, 17);
+
+	CCNotificationCenter::sharedNotificationCenter()->postNotification("isogrid_resize", this);
 }
 
 void IsoGrid::iso2screen(Vec3& isoP, Vec3& screenP)

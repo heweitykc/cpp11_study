@@ -1,5 +1,0 @@
-
-void Road::init()
-{
-	
-}

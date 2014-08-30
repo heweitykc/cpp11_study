@@ -40,7 +40,6 @@ private:
 	cocos2d::ui::Slider* _slider1;
 	cocos2d::ui::Slider* _slider2;
 	cocos2d::ui::Slider* _slider3;
-	cocos2d::LabelTTF* _label;
 	GridItem* _items[6];
 
 	bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);

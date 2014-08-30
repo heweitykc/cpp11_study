@@ -17,14 +17,7 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath />
   <imageFileList />
-  <imagePngList>
-    <string>BLOOD-1.png</string>
-    <string>hat01.png</string>
-    <string>hat.png</string>
-    <string>BLOOD-RED.png</string>
-    <string>BLOOD-BLUE.png</string>
-    <string>gun.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>DemoHead_UI.json</CurrentUIJson>
 </UIProject>

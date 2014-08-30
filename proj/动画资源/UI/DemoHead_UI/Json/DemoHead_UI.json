@@ -10,15 +10,8 @@
   "designHeight": 320,
   "designWidth": 480,
   "textures": [],
-  "texturesPng": [
-    "BLOOD-1.png",
-    "hat01.png",
-    "hat.png",
-    "BLOOD-RED.png",
-    "BLOOD-BLUE.png",
-    "gun.png"
-  ],
-  "version": "1.4.0.1",
+  "texturesPng": [],
+  "version": "1.5.0.0",
   "widgetTree": {
     "classname": "Panel",
     "name": null,
@@ -516,7 +509,7 @@
       "classname": "Panel",
       "name": "Panel",
       "ZOrder": 0,
-      "actiontag": 1,
+      "actiontag": -1,
       "anchorPointX": 0,
       "anchorPointY": 0,
       "classType": "CocoStudio.EngineAdapterWrap.CSPanel",
